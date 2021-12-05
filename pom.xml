@@ -8,10 +8,10 @@
         <version>2.6.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>quiz</artifactId>
+    <groupId>project.exam_system</groupId>
+    <artifactId>exam_system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>quiz</name>
+    <name>exam_system</name>
     <description>quiz</description>
     <properties>
         <java.version>17</java.version>
@@ -62,6 +62,11 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.3.0</version>
         </dependency>
     </dependencies>
 

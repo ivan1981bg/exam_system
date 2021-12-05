@@ -1,6 +1,7 @@
 package project.exam_system.model.entities;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 
@@ -24,7 +25,7 @@ public class UserEntity extends BaseEntity{
     private String lastName;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<UserRoleEntity> roles;
+    private List<UserRoleEntity> roles;
 
     public UserEntity() {
     }
@@ -75,11 +76,11 @@ public class UserEntity extends BaseEntity{
     }
 
 
-    public Set<UserRoleEntity> getUserRole() {
+    public List<UserRoleEntity> getUserRole() {
         return roles;
     }
 
-    public UserEntity setUserRole(Set<UserRoleEntity> roles) {
+    public UserEntity setUserRole(List<UserRoleEntity> roles) {
         this.roles = roles;
         return this;
     }
