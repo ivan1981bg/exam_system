@@ -1,6 +1,6 @@
-package com.example.quiz.model.entities;
+package project.exam_system.model.entities;
 
-import com.example.quiz.model.entities.enums.UserRole;
+import project.exam_system.model.entities.enums.UserRole;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

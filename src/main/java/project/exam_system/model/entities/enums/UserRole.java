@@ -1,4 +1,4 @@
-package com.example.quiz.model.entities.enums;
+package project.exam_system.model.entities.enums;
 
 public enum UserRole {
     ROOT,

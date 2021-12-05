@@ -1,4 +1,4 @@
-package com.example.quiz.web;
+package project.exam_system.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

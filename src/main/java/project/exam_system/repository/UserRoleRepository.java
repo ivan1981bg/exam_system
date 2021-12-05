@@ -1,6 +1,6 @@
-package com.example.quiz.repository;
+package project.exam_system.repository;
 
-import com.example.quiz.model.entities.UserRoleEntity;
+import project.exam_system.model.entities.UserRoleEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,8 +1,6 @@
-package com.example.quiz.model.entities;
+package project.exam_system.model.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 

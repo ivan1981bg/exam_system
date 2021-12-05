@@ -1,4 +1,4 @@
-package com.example.quiz.config;
+package project.exam_system.config;
 
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
