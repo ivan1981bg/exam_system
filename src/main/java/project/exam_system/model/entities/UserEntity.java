@@ -1,6 +1,7 @@
 package project.exam_system.model.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -9,13 +10,13 @@ import java.util.Set;
 @Table(name="users")
 public class UserEntity extends BaseEntity{
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -25,7 +26,7 @@ public class UserEntity extends BaseEntity{
     private String lastName;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<UserRoleEntity> roles;
+    private List<UserRoleEntity> roles = new ArrayList<>();
 
     public UserEntity() {
     }
@@ -76,12 +77,17 @@ public class UserEntity extends BaseEntity{
     }
 
 
-    public List<UserRoleEntity> getUserRole() {
+    public List<UserRoleEntity> getUserRoles() {
         return roles;
     }
 
     public UserEntity setUserRole(List<UserRoleEntity> roles) {
         this.roles = roles;
+        return this;
+    }
+
+    public UserEntity addRole(UserRoleEntity roleEntity) {
+        this.roles.add(roleEntity);
         return this;
     }
 }

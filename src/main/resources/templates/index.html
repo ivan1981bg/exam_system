@@ -1,26 +1,19 @@
 <!DOCTYPE html>
-<html 	xmlns:th="http://www.thymeleaf.org"
-		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<title> Spring Quiz - Home</title>
-</head>
-<body>
-	<header 
-		th:replace="~{fragments/HeaderAndFooter :: header}">
-	</header>
-	<nav
-	 	th:replace="~{fragments/Navigation :: topBar}" >
-	 </nav>
-	<div class="w3-container w3-padding-large" align="center">
-		<h2 th:text = "hghg"> </h2>
-	</div>
-	<div class="w3-container w3-padding-large" align="center">
-		<a th:href="@{/quiz/start}" class="w3-btn w3-large w3-green">Start Quiz</a>
-	</div>
-	<footer
-		th:replace="~{fragments/HeaderAndFooter :: footer}">
-	</footer>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/commons :: head"></head>
+<body class = "homeBackground">
+
+<header th:replace="fragments/commons :: navigation"></header>
+
+<main class="p-5 align-content-center bg-blur">
+    <h1 class="text-light border-left pl-2">Welcome to our</h1>
+    <h1 class="text-light border-left pl-2">Online Examination System</h1>
+    <div class="d-flex justify-content-center">
+        <h1 class="text-light  pl-2">Please Login or Register from the buttons above</h1>
+    </div>
+</main>
+<footer th:replace="fragments/commons :: footer"></footer>
 </body>
 </html>

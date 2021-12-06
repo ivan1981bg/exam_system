@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="head">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Online Examination System</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <script src="/js/jquery-3.3.1.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+<header th:fragment="navigation">
+
+  <nav class="navbar navbar-expand-lg w3-blue rounded">
+    <a class="nav-link" href="/">
+      <img src="/images/exam_pic.jpg" width="40px" alt="Exam picture">
+    </a>
+
+    <a th:href = "@{/about}" class="nav-link text-white active h3">Online Examination System</a>
+    <!--<header	class="w3-container w3-blue">
+      <h1 >Online Examination System</h1>
+    </header>-->
+
+
+    <div sec:authorize="!hasRole('ROLE_ADMIN')" class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Admin Panel
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="/statistics">Statistics</a>
+        <a class="dropdown-item" href="/articles/add">Add article</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+      </div>
+    </div>
+
+
+    <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
+      <ul class="navbar-nav row">
+
+        <li class="nav-item">
+          <a class="nav-link text-white active h5"
+             sec:authorize="!isAuthenticated()"
+             th:href="@{/users/login}">Login
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white active h5"
+             sec:authorize="!isAuthenticated()"
+             th:href="@{/users/register}">
+            Register
+          </a>
+        </li>
+        <li sec:authorize="!isAuthenticated()" class="nav-item ">
+          <a class="nav-link text-white active h5" href="/albums/add">Add Album</a>
+        </li>
+        <li sec:authorize="!isAuthenticated()" class="nav-item ">
+          <a class="nav-link text-white active h5" href="/articles/all">All articles</a>
+        </li>
+        <li sec:authorize="isAuthenticated()" class="nav-item">
+          <form th:action="@{/logout}" method="POST">
+            <button type="submit" class="nav-link">
+              Logout
+            </button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<footer th:fragment="footer" class="footer bg-blur">
+  <div class="container-fluid text-center">
+    <div class="h5 text-white">
+      &copy;Ivan Panchev for Softuni 2021. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+</body>
+
+</html>

@@ -40,9 +40,15 @@
 			<div class = "w3-right w3-dropdown-hover"
 				sec:authorize="isAuthenticated()">
 				<div class="w3-text-grey" style="padding-top: 8px; padding-right: 16px;"> Logged in as: <span sec:authentication ="name"></span> &#9660;</div>
-				<div class="w3-dropdown-content w3-bar-block w3-light-grey" style="padding-top: 6px;">
-					<a class="w3-bar-item w3-button w3-hover-none w3-text-grey w3-center"
-					th:href="@{/logout}"> log out </a>
+				<div class="w3-dropdown-content w3-bar-block w3-light-grey" >
+					<a class="w3-bar-item w3-button w3-hover w3-text-grey w3-center">
+						<form th:action="@{/logout}" method="POST">
+							<button id="logout" type="submit" class="nav-link">
+								Logout
+							</button>
+						</form>
+
+					</a>
        			</div>
        		</div>
 		</div>

@@ -30,6 +30,5 @@ public class UserRoleServiceImpl implements UserRoleService {
     @Override
     public List<UserRoleEntity> getRolesForRootUser() {
         return userRoleRepository.findAll();
-
     }
 }

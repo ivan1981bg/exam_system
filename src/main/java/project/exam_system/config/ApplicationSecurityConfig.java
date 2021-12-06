@@ -7,11 +7,21 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import project.exam_system.service.impl.ExamSystemUserService;
 
 @Configuration
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final ExamSystemUserService examSystemUserService;
+    private final PasswordEncoder passwordEncoder;
+
+    public ApplicationSecurityConfig(ExamSystemUserService examSystemUserService, PasswordEncoder passwordEncoder) {
+        this.examSystemUserService = examSystemUserService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -21,7 +31,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 // allow access to static resources to anyone
                         requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll().
                 // allow access to index, user login and registration to anyone
-                        antMatchers( "/users/login", "/users/register").permitAll().
+                        antMatchers( "/","/users/login", "/users/register").permitAll().
                 antMatchers("/articles/add").hasRole("ADMIN").
                 // protect all other pages
                         antMatchers("/**").authenticated().
@@ -52,8 +62,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.
-//                userDetailsService(musicDBUserService).
-//                passwordEncoder(passwordEncoder);
+        auth.
+                userDetailsService(examSystemUserService).
+                passwordEncoder(passwordEncoder);
     }
 }
