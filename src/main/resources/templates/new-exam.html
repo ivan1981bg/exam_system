@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/commons :: head"></head>
+<body>
+<header th:replace="fragments/commons :: navigation"></header>
+<main>
+
+    <div class="w3-panel w3-padding w3-center">
+        <h2 align="center">Create new exam</h2>
+
+    </div>
+
+    <div class="w3-panel" align="center">
+        <form class="w3-container w3-card w3-light-grey" style="width:80%;"
+              action="#" th:action="@{/admin/create-new}" th:object="${quiz}" method="post">
+            <p th:text="'Number of questions: '"></p>
+            <select th:field = "*{numberOfQuestions}" name="numberOfQuestions" >
+                <option th:each="n : ${#numbers.sequence(1, MAX_QUESTIONS)}"
+                 th:value="${n}" th:text="${n}" th:selected="${n == numberOfQuestions}">
+
+                </option>
+            </select>
+
+
+            <p align="left">
+                <label th:for="name">Name:</label>
+                <label class="w3-text-red"
+                       th:errors="*{name}"> Name error </label>
+                <input class="w3-input w3-border"
+                       type="text" th:field="*{name}"
+                       required autofocus/>
+            </p>
+            <p align="left">
+                <label th:for="description">Description:</label>
+                <label class="w3-text-red"
+                       th:errors="*{description}"> Description error </label>
+                <input class="w3-input w3-border"
+                       type="text" th:field="*{description}"
+                       required autofocus/>
+            </p>
+
+
+                <p>
+                    <input class="w3-btn w3-block w3-blue w3-m"
+                    type="submit" value="Add exam" />
+                </p>
+        </form>
+    </div>
+</main>
+<footer th:replace="fragments/commons :: footer"></footer>
+</body>
+</html>

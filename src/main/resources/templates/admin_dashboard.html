@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons :: head"></head>
+<body >
+<header th:replace="fragments/commons :: navigation"></header>
+
+
+<main class="p-5 align-content-center bg-blur">
+    <div class="header-area">
+        <div class="main-header header-sticky">
+            <div class="container-fluid">
+                <div class="row align-items-center">
+                    <div class="col-xl-10 col-lg-10 col-md-10">
+                        <div class="menu-main d-flex align-items-center justify-content-end">
+                            <!-- Main-menu -->
+                            <div class="main-menu f-right d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                            <li><a th:href="@{/admin/all-users}">Manage Users</a></li>
+                                            <li><a th:href="@{/admin/all-exams}">Manage Exams</a></li>
+                                            <li><a th:href="@{/admin/create-new}">Create New Exam</a></li>
+                                            <li><a th:href="@{/specialty/all}">All Specialties</a></li>
+                                            <li><a th:href="@{/city/create}">Add City</a></li>
+                                            <li><a th:href="@{/specialty/create}">Add Specialty</a></li>
+                                        </th:block>
+                                        <th:block sec:authorize="hasRole('ROLE_USER')">
+                                            <li><a th:href="@{/user/dashboard}">Dashboard</a></li>
+                                        </th:block>
+                                        <th:block sec:authorize="hasRole('ROLE_DOCTOR')">
+                                            <li><a th:href="@{/doctor/dashboard}">Dashboard</a></li>
+                                        </th:block>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/commons :: footer"></footer>
+</body>
+</html>

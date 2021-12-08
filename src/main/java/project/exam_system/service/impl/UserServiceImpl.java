@@ -12,10 +12,14 @@ import project.exam_system.model.entities.UserEntity;
 import project.exam_system.model.entities.UserRoleEntity;
 import project.exam_system.model.entities.enums.UserRole;
 import project.exam_system.model.service.UserRegisterServiceModel;
+import project.exam_system.model.service.UserServiceModel;
 import project.exam_system.repository.UserRepository;
 import project.exam_system.repository.UserRoleRepository;
 import project.exam_system.service.UserRoleService;
 import project.exam_system.service.UserService;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -82,5 +86,18 @@ public class UserServiceImpl implements UserService {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    @Override
+    public UserServiceModel getByUsername(String username) {
+        return userRepository.findByUsername(username).
+                map(user -> modelMapper.map(user, UserServiceModel.class)).orElseThrow(null);
+    }
+
+    @Override
+    public List<UserServiceModel> getAll() {
+        return userRepository.findAll().stream()
+                .map(user -> modelMapper.map(user, UserServiceModel.class))
+                .collect(Collectors.toList());
     }
 }

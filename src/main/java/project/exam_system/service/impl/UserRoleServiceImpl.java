@@ -22,7 +22,6 @@ public class UserRoleServiceImpl implements UserRoleService {
         if (userRoleRepository.count() == 0){
             userRoleRepository.save(new UserRoleEntity().setRole(UserRole.ROOT));
             userRoleRepository.save(new UserRoleEntity().setRole(UserRole.ADMIN));
-            userRoleRepository.save(new UserRoleEntity().setRole(UserRole.MODERATOR));
             userRoleRepository.save(new UserRoleEntity().setRole(UserRole.USER));
         }
     }

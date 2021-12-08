@@ -1,4 +1,4 @@
-package project.exam_system.web;
+package project.exam_system.web.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;

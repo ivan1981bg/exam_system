@@ -1,4 +1,4 @@
-package project.exam_system.web;
+package project.exam_system.web.controllers;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
