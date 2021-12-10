@@ -3,6 +3,8 @@ package project.exam_system.model.service;
 import java.util.List;
 
 public class UserServiceModel {
+    private Long id;
+    private String username;
     private String firstName;
     private String lastName;
     private String email;
@@ -19,6 +21,24 @@ public class UserServiceModel {
     }
 
     public UserServiceModel() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public UserServiceModel setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public UserServiceModel setUsername(String username) {
+        this.username = username;
+        return this;
     }
 
     public String getFirstName() {

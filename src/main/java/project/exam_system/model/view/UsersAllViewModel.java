@@ -7,6 +7,7 @@ import java.util.List;
 
 public class UsersAllViewModel {
     private String id;
+    private String username;
     private String firstName;
     private String lastName;
     private String email;
@@ -30,6 +31,15 @@ public class UsersAllViewModel {
 
     public UsersAllViewModel setId(String id) {
         this.id = id;
+        return this;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public UsersAllViewModel setUsername(String username) {
+        this.username = username;
         return this;
     }
 

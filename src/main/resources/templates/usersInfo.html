@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/commons :: head"></head>
+<body>
+<header th:replace="fragments/commons :: navigation"></header>
+<main>
+	<nav
+	 	th:replace="~{fragments/Navigation :: topBar}" >
+	</nav>
+	<div class="w3-container w3-center w3-padding-large">
+		<h2> Users info </h2>
+	</div>
+	<div class="w3-container w3-center">
+	<table class ="w3-table w3-bordered w3-centered">
+	 	<thead>
+	 		<tr>
+				<th>Username</th>
+	 			<th>First name</th>
+	 			<th>Last name</th>
+	 			<th>Email</th>
+	 			<th>Account</th>
+
+	 		</tr>
+	 	</thead>
+	 	<tbody>
+	 		<tr th:each="u : ${users}" >
+				<td th:text="${u.username}"></td>
+	 			<td th:text="${u.firstName}"></td>
+	 			<td th:text="${u.lastName}"></td>
+	 			<td th:text="${u.email}"></td>
+				<th:block th:each="userRoles : ${u.userRoles}">
+					<td>
+						<li th:utext="${userRoles.userRole}"></li>
+					</td>
+				</th:block>
+
+
+
+				<th:block th:if="${#lists.size(u.userRoles) == 1}">
+					<td class="col-md-1 text-center">
+						<form th:action="@{/user/set-admin/{id}(id=${u.id})}" method="post">
+							<button style="color: #0a0f17">ADMIN</button>
+						</form>
+					</td>
+				</th:block>
+
+
+				<td class="col-md-1 text-center red-color">
+					<th:block sec:authorize="hasRole('ROLE_ADMIN')">
+						<th:block th:if="${#lists.size(u.userRoles) == 1}">
+							<li><a th:href="@{/user/delete/{id}(id=${u.id})}">DELETE</a></li>
+						</th:block>
+					</th:block>
+				</td>
+
+	 		</tr>
+	 	</tbody>
+	 </table>
+	 </div>
+</main>
+<footer th:replace="fragments/commons :: footer"></footer>
+</body>
+</html>

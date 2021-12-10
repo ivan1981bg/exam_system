@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+      integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<head th:replace="fragments/commons :: head"></head>
+<body>
+<header th:replace="fragments/commons :: navigation"></header>
+<main>
+    <nav
+            th:replace="~{fragments/Navigation :: topBar}">
+    </nav>
+
+    <div class="w3-container w3-padding-large" align="center">
+        <h2 th:text="${'Welcome ' + session.userFirstName}"></h2>
+    </div>
+    <div class="w3-container w3-padding-large" align="center">
+        <a th:href="@{/quiz/start}" class="w3-btn w3-large w3-blue">Start Exam</a>
+    </div>
+
+
+
+
+
+    <div class="d-flex flex-row flex-wrap overflow-auto">
+        <th:block th:each="exam : ${exams}">
+
+                <div class="card " style="width: 18rem;">
+                    <img src="/images/exam_pic.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text = "${exam.name}">Card title</h5>
+                        <p class="card-text" th:text = "${exam.description}">Some quick example text to build on the card title and make up the bulk of
+                            the card's content.</p>
+                        <a href="#" class="w3-btn w3-large w3-blue ">Start exam</a>
+                    </div>
+                </div>
+
+        </th:block>
+
+    </div>
+
+
+</main>
+<footer th:replace="fragments/commons :: footer"></footer>
+</body>
+</html>

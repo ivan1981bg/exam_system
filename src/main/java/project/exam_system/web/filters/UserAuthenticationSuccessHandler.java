@@ -15,6 +15,7 @@ import project.exam_system.service.UserService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.Set;
@@ -41,9 +42,19 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
                                         org.springframework.security.core.Authentication authentication)
                                         throws IOException, ServletException {
 
+        //String userName
+        //UserServiceModel userServiceModel = userService.getByUsername(user)
+
+
+
+        HttpSession session = httpServletRequest.getSession(true);
+        session.setAttribute("userFirstName", authenticatedUserService.getUsername());
+
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_ADMIN")) {
             redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/admin/panel");
+        }else{
+            redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/home");
         }
 
         /*

@@ -7,7 +7,6 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Online Examination System</title>
-  <link rel="stylesheet" href="/css/reset-css.css"/>
   <link rel="stylesheet" href="/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="/css/style.css"/>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -26,23 +25,13 @@
       <img src="/images/exam_pic.jpg" width="40px" alt="Exam picture">
     </a>
 
-    <a th:href = "@{/about}" class="nav-link text-white active h3">Online Examination System</a>
+    <a th:href = "@{/about}" class="nav-link text-white text-center active h3">Online Examination System</a>
     <!--<header	class="w3-container w3-blue">
       <h1 >Online Examination System</h1>
     </header>-->
 
 
-    <div sec:authorize="!hasRole('ROLE_ADMIN')" class="dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Admin Panel
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="/statistics">Statistics</a>
-        <a class="dropdown-item" href="/articles/add">Add article</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-      </div>
-    </div>
+
 
 
     <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
@@ -61,12 +50,7 @@
             Register
           </a>
         </li>
-        <li sec:authorize="!isAuthenticated()" class="nav-item ">
-          <a class="nav-link text-white active h5" href="/albums/add">Add Album</a>
-        </li>
-        <li sec:authorize="!isAuthenticated()" class="nav-item ">
-          <a class="nav-link text-white active h5" href="/articles/all">All articles</a>
-        </li>
+
         <li sec:authorize="isAuthenticated()" class="nav-item">
           <form th:action="@{/logout}" method="POST">
             <button type="submit" style="color: #0a0f17" class="nav-link">
