@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org"
+         xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/commons :: head"></head>
+<body>
+<header th:replace="fragments/commons :: navigation"></header>
+<main>
+<div class="w3-panel w3-padding w3-center">
+
+
+    <h4 align="center">Create new question</h4>
+
+    <form th:action="@{/questions/new}" method="get">
+
+        <p th:text= "'Number of answers: '"> </p>
+
+        <select name="numberOfAnswers">
+            <option th:each="n : ${#numbers.sequence(2, MAX_ANSWERS)}"
+                    th:value="${n}" th:text="${n}" th:selected="${n == numberOfAnswers}"></option>
+        </select>
+        <input type="submit" value="Refresh" />
+    </form>
+
+</div>
+
+<div class="w3-panel" align="center">
+    <form class="w3-container w3-card w3-light-grey" style="width:80%;"
+          action="#" th:action="@{|/exams/edit/${exam_id}/new_q|}" th:object="${questionBindingModel}" method="post">
+        <p align="left">
+            <label th:for="questionText">Question:</label>
+            <label class="w3-text-red"
+                   th:errors="*{text}"> QuestionText error </label>
+            <input class="w3-input w3-border"
+                   type="text" th:field="*{text}"
+                   required autofocus />
+        </p>
+
+        <div class="w3-quarter w3-right" align="center">
+            <label th:text="'Correct answer:'"> Correct answer </label>
+        </div>
+
+        <div th:each="ansCount : ${#numbers.sequence(1, numberOfAnswers)}">
+            <div align="left">
+                <label th:for="${#ids.next('answers')}"
+                       th:text="${'Answer ' + ansCount + ':'}">Answer:
+                </label>
+
+                <label class="w3-text-red"
+                       th:errors="*{answersText[__${ansCountStat.index}__]}"> Answer error </label>
+            </div>
+            <div class="w3-row">
+                <div class="w3-threequarter">
+                    <input class=" w3-input w3-border"
+                           type="text" name="answersText" th:value="${ ansCount <= #lists.size(questionBindingModel.answersText) ? questionBindingModel.answersText[ansCountStat.index] : ''}"
+                           th:id="${#ids.seq('answersText')}"
+                           required />
+                </div>
+                <div class="w3-quarter">
+                    <input class="w3-radio"
+                           type="radio" th:field="*{correctAnswer}" th:value="${ansCountStat.index}"/>
+                </div>
+            </div>
+        </div>
+        <label class="w3-text-red" th:errors="*{correctAnswer}"> Answers error </label>
+        <p>
+            <input class="w3-btn w3-block w3-green w3-m"
+                   type="submit" value="Add question" />
+        </p>
+    </form>
+</div>
+</main>
+<footer th:replace="fragments/commons :: footer"></footer>
+
+
+</body>
+</html>

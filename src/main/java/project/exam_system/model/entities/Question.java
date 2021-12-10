@@ -1,8 +1,12 @@
 package project.exam_system.model.entities;
 
+import project.exam_system.model.service.AnswerServiceModel;
+import project.exam_system.model.service.QuizServiceModel;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,10 +24,10 @@ public class Question extends BaseEntity{
     private Integer order;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Answer> answers;
+    private List<Answer> answers =new ArrayList<>();
 
-    @OneToOne
-    private Answer correctAnswer;
+    @Column(name = "correct_answer")
+    private Integer correctAnswer;
 
 
     public Question() {
@@ -65,11 +69,11 @@ public class Question extends BaseEntity{
         return this;
     }
 
-    public Answer getCorrectAnswer() {
+    public Integer getCorrectAnswer() {
         return correctAnswer;
     }
 
-    public Question setCorrectAnswer(Answer correctAnswer) {
+    public Question setCorrectAnswer(Integer correctAnswer) {
         this.correctAnswer = correctAnswer;
         return this;
     }

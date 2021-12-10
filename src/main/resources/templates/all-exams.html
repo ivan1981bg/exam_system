@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/commons :: head"></head>
+
+<body>
+<header th:replace="fragments/commons :: navigation"></header>
+<main>
+    <div class="container">
+        <table class="table table-hover w-100 mx-auto">
+            <thead>
+            <tr class="row mx-auto">
+                <th class="col-md-1 text-heading">#</th>
+                <th class="col-md-2 text-heading">Exam name</th>
+                <th class="col-md-2 text-heading">Questions</th>
+                <th class="col-md-2 text-heading">Published</th>
+                <th class="col-md-2 text-heading">Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <th:block th:each="exam, iter : ${exams}">
+                <tr class="row mx-auto">
+                    <th class="col-md-1 text-center" th:utext="${iter.index + 1}"></th>
+                    <td class="col-md-2 text-center" th:utext="${exam.name}"></td>
+                    <td class="col-md-2 text-center" th:utext="${exam.questions.size() + '/' +  exam.numberOfQuestions }"></td>
+
+                    <td class="col-md-2 text-center" th:utext="${exam.published}"></td>
+
+
+                    <th:block>
+                        <td class="col-md-1 text-center">
+                            <form th:action="@{/exams/edit/{id}(id=${exam.id})}" method="get">
+                                <button style="color: #0a0f17">EDIT</button>
+                            </form>
+                        </td>
+                    </th:block>
+
+                    <td class="col-md-1 text-center red-color">
+                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                            <th:block>
+                                <li><a th:href="@{/exams/delete/{id}(id=${exam.id})}">DELETE</a></li>
+                            </th:block>
+                        </th:block>
+                    </td>
+
+
+<!--
+                    <th:block th:each="userRoles : ${user.userRoles}">
+                        <td class="col-lg-1 text-center">
+                            <li th:utext="${userRoles.userRole}"></li>
+                        </td>
+                    </th:block>
+
+
+                    <th:block sec:authorize="hasRole('ROLE_ROOT')">
+                        <th:block th:if="${#lists.size(user.userRoles) == 2}">
+                            <td class="col-md-1 text-center">
+                                <form th:action="@{/user/set-user/{id}(id=${user.id})}" method="post">
+                                    <button style="color: #0a0f17">USER</button>
+                                </form>
+                            </td>
+                            <td class="col-md-1 text-center">
+                                <li><a th:href="@{/user/delete/{id}(id=${user.id})}">DELETE</a></li>
+                            </td>
+                        </th:block>
+                    </th:block>
+
+                    <th:block th:if="${#lists.size(user.userRoles) == 1}">
+                        <td class="col-md-1 text-center">
+                            <form th:action="@{/user/set-admin/{id}(id=${user.id})}" method="post">
+                                <button style="color: #0a0f17">ADMIN</button>
+                            </form>
+                        </td>
+                    </th:block>
+
+                    <td class="col-md-1 text-center red-color">
+                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                            <th:block th:if="${#lists.size(user.userRoles) == 1}">
+                                <li><a th:href="@{/user/delete/{id}(id=${user.id})}">DELETE</a></li>
+                            </th:block>
+                        </th:block>
+                    </td>-->
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer th:replace="fragments/commons :: footer"></footer>
+</body>
+</html>
