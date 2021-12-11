@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.exam_system.model.binding.QuestionBindingModel;
-import project.exam_system.model.entities.Answer;
 import project.exam_system.model.service.AnswerServiceModel;
 import project.exam_system.model.service.QuestionServiceModel;
-import project.exam_system.model.service.QuizServiceModel;
+import project.exam_system.model.service.ExamServiceModel;
 import project.exam_system.service.AnswerService;
 import project.exam_system.service.QuestionService;
-import project.exam_system.service.QuizService;
+import project.exam_system.service.ExamService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -25,14 +24,14 @@ import java.util.List;
 @RequestMapping("/exams")
 public class ExamController {
 
-    private final QuizService quizService;
+    private final ExamService examService;
     private final ModelMapper modelMapper;
 
     private final QuestionService questionService;
     private final AnswerService answerService;
 
-    public ExamController(QuizService quizService, ModelMapper modelMapper, QuestionService questionService, AnswerService answerService) {
-        this.quizService = quizService;
+    public ExamController(ExamService examService, ModelMapper modelMapper, QuestionService questionService, AnswerService answerService) {
+        this.examService = examService;
         this.modelMapper = modelMapper;
         this.questionService = questionService;
         this.answerService = answerService;
@@ -46,7 +45,7 @@ public class ExamController {
     @GetMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ModelAndView getAllExamsView(ModelAndView modelAndView) {
-        modelAndView.addObject("exams", quizService.getAll());
+        modelAndView.addObject("exams", examService.getAll());
 
 
         modelAndView.setViewName("all-exams");
@@ -55,7 +54,7 @@ public class ExamController {
 
     @GetMapping("/edit/{exam_id}")
     public ModelAndView editExam(@PathVariable Long exam_id, ModelAndView modelAndView) {
-        modelAndView.addObject("questions", quizService.getById(exam_id).getQuestions());
+        modelAndView.addObject("questions", examService.getById(exam_id).getQuestions());
         modelAndView.addObject("exam_id", exam_id);
         modelAndView.setViewName("all-questions");
         return modelAndView;
@@ -87,16 +86,11 @@ public class ExamController {
         }
         //TODO: binding stuff
 
-        QuizServiceModel quizServiceModel = quizService.getById(exam_id);
-/*
-        List<AnswerServiceModel> answerServiceModels = new ArrayList<>();
-        for (int i = 0; i < questionBindingModel.getAnswers().size(); i++){
-            answerServiceModels.add(new AnswerServiceModel(questionBindingModel.getAnswers().get(i), i));
-        }
-*/
+        ExamServiceModel examServiceModel = examService.getById(exam_id);
+
         QuestionServiceModel questionServiceModel = modelMapper.map(questionBindingModel, QuestionServiceModel.class).
-                setQuiz(quizServiceModel).
-                setOrder(quizServiceModel.getQuestions().size()).
+                setExam(examServiceModel).
+                setOrder(examServiceModel.getQuestions().size()).
                 setAnswers(new ArrayList<>());
 
         questionServiceModel = questionService.save(questionServiceModel);
@@ -115,6 +109,17 @@ public class ExamController {
         System.out.println();
         return "redirect:";
 
+    }
+
+    @GetMapping("/start/{examId}")
+    public String startExam(RedirectAttributes redirectAttr, @PathVariable Long examId) {
+
+        redirectAttr.addAttribute("e", examId);
+        redirectAttr.addAttribute("q", 0);
+
+
+
+        return "redirect:/questions/show";
     }
 
 

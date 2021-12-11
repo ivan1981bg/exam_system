@@ -1,8 +1,5 @@
 package project.exam_system.model.entities;
 
-import project.exam_system.model.service.AnswerServiceModel;
-import project.exam_system.model.service.QuizServiceModel;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,7 +15,7 @@ public class Question extends BaseEntity{
     private String text;
 
     @ManyToOne
-    private Quiz quiz;
+    private Exam exam;
 
     @Column(name = "q_order")
     private Integer order;
@@ -42,12 +39,12 @@ public class Question extends BaseEntity{
         return this;
     }
 
-    public Quiz getQuiz() {
-        return quiz;
+    public Exam getExam() {
+        return exam;
     }
 
-    public Question setQuiz(Quiz quiz) {
-        this.quiz = quiz;
+    public Question setExam(Exam exam) {
+        this.exam = exam;
         return this;
     }
 

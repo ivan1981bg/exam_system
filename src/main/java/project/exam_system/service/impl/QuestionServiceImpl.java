@@ -27,4 +27,10 @@ public class QuestionServiceImpl implements QuestionService {
         return questionServiceModel;
 
     }
+
+    @Override
+    public QuestionServiceModel getQuestionByOrder(Integer order) {
+
+        return modelMapper.map(questionRepository.getQuestionByOrder(order), QuestionServiceModel.class);
+    }
 }

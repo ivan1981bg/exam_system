@@ -7,7 +7,7 @@ public class QuestionServiceModel {
 
     private Long id;
     private String text;
-    private QuizServiceModel quiz;
+    private ExamServiceModel exam;
     private Integer order;
     private List<AnswerServiceModel> answers;
     private Integer correctAnswer;
@@ -34,12 +34,12 @@ public class QuestionServiceModel {
         return this;
     }
 
-    public QuizServiceModel getQuiz() {
-        return quiz;
+    public ExamServiceModel getExam() {
+        return exam;
     }
 
-    public QuestionServiceModel setQuiz(QuizServiceModel quiz) {
-        this.quiz = quiz;
+    public QuestionServiceModel setExam(ExamServiceModel exam) {
+        this.exam = exam;
         return this;
     }
 

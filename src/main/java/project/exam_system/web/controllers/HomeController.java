@@ -3,15 +3,15 @@ package project.exam_system.web.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import project.exam_system.service.QuizService;
+import project.exam_system.service.ExamService;
 
 @Controller
 public class HomeController {
 
-    private final QuizService quizService;
+    private final ExamService examService;
 
-    public HomeController(QuizService quizService) {
-        this.quizService = quizService;
+    public HomeController(ExamService examService) {
+        this.examService = examService;
     }
 
     @GetMapping("/")
@@ -22,7 +22,7 @@ public class HomeController {
     @GetMapping("/home")
     public String home(Model model){
 
-        model.addAttribute("exams", quizService.getAll());
+        model.addAttribute("exams", examService.getAll());
         return "home";
     }
 }

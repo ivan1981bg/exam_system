@@ -12,7 +12,7 @@
     <artifactId>exam_system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>exam_system</name>
-    <description>quiz</description>
+    <description>exam</description>
     <properties>
         <java.version>17</java.version>
     </properties>

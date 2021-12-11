@@ -6,4 +6,5 @@ import project.exam_system.model.entities.Question;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
+    Question getQuestionByOrder(Integer order);
 }

@@ -8,9 +8,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import project.exam_system.model.entities.Quiz;
+import project.exam_system.model.entities.Exam;
 import project.exam_system.model.view.UsersAllViewModel;
-import project.exam_system.service.QuizService;
+import project.exam_system.service.ExamService;
 import project.exam_system.service.UserService;
 
 import javax.validation.Valid;
@@ -22,12 +22,12 @@ public class AdminController {
 
     private final ModelMapper modelMapper;
     private final UserService userService;
-    private final QuizService quizService;
+    private final ExamService examService;
 
-    public AdminController(ModelMapper modelMapper, UserService userService, QuizService quizService) {
+    public AdminController(ModelMapper modelMapper, UserService userService, ExamService examService) {
         this.modelMapper = modelMapper;
         this.userService = userService;
-        this.quizService = quizService;
+        this.examService = examService;
     }
 
     @GetMapping("/panel")
@@ -49,13 +49,13 @@ public class AdminController {
     }
 
     @ModelAttribute("quiz")
-    public Quiz createQuiz() {
-        return new Quiz();
+    public Exam createQuiz() {
+        return new Exam();
     }
 
 
     @GetMapping("/create-new")
-    public String newQuestion(@ModelAttribute Quiz quiz,
+    public String newQuestion(@ModelAttribute Exam quiz,
                               @RequestParam(name = "numberOfQuestions", defaultValue = "1") int numberOfQuestions,
                               ModelMap model) {
 
@@ -66,7 +66,7 @@ public class AdminController {
 
 
     @PostMapping("/create-new")
-    public String addQuestion(@Valid Quiz quiz, BindingResult bindingResult, ModelMap model, RedirectAttributes redirectAttrs) {
+    public String addQuestion(@Valid Exam quiz, BindingResult bindingResult, ModelMap model, RedirectAttributes redirectAttrs) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("numberOfQuestions", quiz.getQuestions().size());
@@ -75,7 +75,7 @@ public class AdminController {
         }
 
 
-            quizService.save(quiz);
+            examService.save(quiz);
 
         return "redirect:panel";
     }
