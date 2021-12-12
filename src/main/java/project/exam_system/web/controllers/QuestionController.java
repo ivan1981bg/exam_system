@@ -13,6 +13,7 @@ import project.exam_system.model.view.QuestionViewModel;
 import project.exam_system.service.QuestionService;
 import project.exam_system.service.ExamService;
 import project.exam_system.service.ResultService;
+import project.exam_system.service.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -26,12 +27,14 @@ public class QuestionController {
     private final QuestionService questionService;
     private final ModelMapper modelMapper;
     private final ResultService resultService;
+    private final UserService userService;
 
-    public QuestionController(ExamService examService, QuestionService questionService, ModelMapper modelMapper, ResultService resultService) {
+    public QuestionController(ExamService examService, QuestionService questionService, ModelMapper modelMapper, ResultService resultService, UserService userService) {
         this.examService = examService;
         this.questionService = questionService;
         this.modelMapper = modelMapper;
         this.resultService = resultService;
+        this.userService = userService;
     }
 
 
@@ -42,7 +45,7 @@ public class QuestionController {
 
 
     @GetMapping("/show")
-    public String showQuestion(@RequestParam(name = "e") Long examId,
+    public String showQuestion( @RequestParam(name = "e") Long examId,
                                @RequestParam(name = "q") Integer questionIndex,
                                Model model) {
 
@@ -60,13 +63,12 @@ public class QuestionController {
             return "show-question";
         }
         else {
-            return "redirect:/quiz/completed";
+            return "redirect:/exams/completed/" + examId;
         }
     }
 
     @PostMapping("/show")
     public String userAnswered( Principal principal,
-                        //        @RequestParam(name = "qId") Long questionId,
                                 @RequestParam(name = "e") Long examId,
                                 @RequestParam(defaultValue = "") String selectedAnswer,
                                 @RequestParam(name = "q") int questionIndex,
@@ -76,12 +78,28 @@ public class QuestionController {
             redirectAttributes.addFlashAttribute("message", "Please select an answer before clicking the submit button.");
             return "redirect:show?e=" + examId + "&q=" + questionIndex;
         }
+        String username = principal.getName();
+
+        userService.storeUserAnswer(username, examId,questionIndex, selectedAnswer);
+
+
+        return "redirect:/questions/show?e=" + examId + "&q=" + (questionIndex + 1);
+    }
+
+    @PostMapping("/skip")
+    public String skip( Principal principal,
+                                //        @RequestParam(name = "qId") Long questionId,
+                                @RequestParam(name = "e") Long examId,
+                                @RequestParam(defaultValue = "") String selectedAnswer,
+                                @RequestParam(name = "q") int questionIndex,
+                                RedirectAttributes redirectAttributes) {
+
+
 
         String username = principal.getName();
-        resultService.saveResult(username, examService.getById(examId), questionIndex, selectedAnswer);
-        //quizService.storeUsersAnswer(username, questionId, selectedAnswer);
+        resultService.saveResult(username, examService.getById(examId), questionIndex, "");
 
-        return "redirect:/questions/show?q=" + (questionIndex + 1);
+        return "redirect:/questions/show?e=" + examId + "&q=" + (questionIndex + 1);
     }
 
 

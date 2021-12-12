@@ -4,19 +4,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.exam_system.model.binding.QuestionBindingModel;
-import project.exam_system.model.service.AnswerServiceModel;
-import project.exam_system.model.service.QuestionServiceModel;
-import project.exam_system.model.service.ExamServiceModel;
-import project.exam_system.service.AnswerService;
-import project.exam_system.service.QuestionService;
-import project.exam_system.service.ExamService;
+import project.exam_system.model.service.*;
+import project.exam_system.service.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +27,16 @@ public class ExamController {
 
     private final QuestionService questionService;
     private final AnswerService answerService;
+    private final UserService userService;
+    private final ResultService resultService;
 
-    public ExamController(ExamService examService, ModelMapper modelMapper, QuestionService questionService, AnswerService answerService) {
+    public ExamController(ExamService examService, ModelMapper modelMapper, QuestionService questionService, AnswerService answerService, UserService userService, ResultService resultService) {
         this.examService = examService;
         this.modelMapper = modelMapper;
         this.questionService = questionService;
         this.answerService = answerService;
+        this.userService = userService;
+        this.resultService = resultService;
     }
 
     @ModelAttribute("questionBindingModel")
@@ -118,9 +120,15 @@ public class ExamController {
         redirectAttr.addAttribute("q", 0);
 
 
-
         return "redirect:/questions/show";
     }
 
+    @GetMapping("/completed/{examId}")
+    public String onCompletion(Principal principal, ModelMap model, @PathVariable Long examId) {
 
+        UserServiceModel userServiceModel = userService.getByUsername(principal.getName());
+
+        //model.addAttribute("score", resultService.getUserResult(userServiceModel));
+        return "exam-completion";
+    }
 }

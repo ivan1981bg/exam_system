@@ -8,13 +8,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import project.exam_system.model.entities.Question;
 import project.exam_system.model.entities.UserEntity;
 import project.exam_system.model.entities.UserRoleEntity;
 import project.exam_system.model.entities.enums.UserRole;
+import project.exam_system.model.service.ExamServiceModel;
+import project.exam_system.model.service.QuestionServiceModel;
 import project.exam_system.model.service.UserRegisterServiceModel;
 import project.exam_system.model.service.UserServiceModel;
 import project.exam_system.repository.UserRepository;
 import project.exam_system.repository.UserRoleRepository;
+import project.exam_system.service.ExamService;
 import project.exam_system.service.UserRoleService;
 import project.exam_system.service.UserService;
 
@@ -30,14 +34,16 @@ public class UserServiceImpl implements UserService {
     private final ModelMapper modelMapper;
     private final UserRoleRepository userRoleRepository;
     private final ExamSystemUserService examSystemUserService;
+    private final ExamService examService;
 
-    public UserServiceImpl(UserRepository userRepository, UserRoleService userRoleService, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper, UserRoleRepository userRoleRepository, ExamSystemUserService examSystemUserService) {
+    public UserServiceImpl(UserRepository userRepository, UserRoleService userRoleService, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper, UserRoleRepository userRoleRepository, ExamSystemUserService examSystemUserService, ExamService examService) {
         this.userRepository = userRepository;
         this.userRoleService = userRoleService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.modelMapper = modelMapper;
         this.userRoleRepository = userRoleRepository;
         this.examSystemUserService = examSystemUserService;
+        this.examService = examService;
     }
 
     @Async
@@ -50,7 +56,7 @@ public class UserServiceImpl implements UserService {
                     setEmail("i_panchev@abv.bg").
                     setUsername("i_panchev").
                     setPassword(bCryptPasswordEncoder.encode(System.getenv("ROOT_USER_PASSWORD"))).
-                    setUserRole(userRoleService.getRolesForRootUser());
+                    setRoles(userRoleService.getRolesForRootUser());
 
            userRepository.save(user);
             System.out.println();
@@ -79,6 +85,7 @@ public class UserServiceImpl implements UserService {
 
         UserDetails principal = examSystemUserService.loadUserByUsername(newUser.getUsername());
 
+
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 principal,
                 newUser.getPassword(),
@@ -100,4 +107,16 @@ public class UserServiceImpl implements UserService {
                 .map(user -> modelMapper.map(user, UserServiceModel.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void storeUserAnswer(String username, Long examId, Integer questionIndex, String answer) {
+        UserEntity user = userRepository.findByUsername(username).orElseThrow(null);
+        ExamServiceModel examServiceModel = examService.getById(examId);
+        QuestionServiceModel questionServiceModel = examServiceModel.getQuestions().get(questionIndex);
+        Question question = modelMapper.map(questionServiceModel, Question.class);
+        user.getAnswers().put(question, answer);
+        userRepository.save(user);
+    }
+
+
 }

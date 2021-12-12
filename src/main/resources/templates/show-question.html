@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:text-align="http://www.w3.org/1999/xhtml">
+
 <head th:replace="fragments/commons :: head"></head>
 <body>
 <header th:replace="fragments/commons :: navigation"></header>
 <main>
     <nav th:replace="~{fragments/Navigation :: topBar}"></nav>
     <div class="w3-container w3-padding w3-center">
-        <h4 align="center"
+        <h4 text-align:center
             th:text="${'Question ' + (questionIndex + 1)  + '/' + numberOfQuestions}">
             Question</h4>
         <div align="center">
@@ -28,13 +28,13 @@
                     <p><input class="w3-btn w3-block w3-green w3-m" type="submit"
                               value="Submit answer"/></p>
                 </form>
-                <!--            <form class=" w3-center w3-padding w3-light-grey"-->
-                <!--                  th:action="@{/quiz/skip}" method="post">-->
-                <!--                <input type="hidden" name="qId" th:value="${question.id}" /> <input-->
-                <!--                    type="hidden" name="q" th:value="${qIndex}" /> <input-->
-                <!--                    class="w3-btn w3-block w3-grey w3-m w3-small" type="submit"-->
-                <!--                    value="Skip this question" />-->
-                <!--            </form>-->
+                            <form class=" w3-center w3-padding w3-light-grey"
+                                  th:action="@{/questions/skip}" method="post">
+                                <input type="hidden" name="e" th:value="${examId}" /> <input
+                                    type="hidden" name="q" th:value="${questionIndex}" /> <input
+                                    class="w3-btn w3-block w3-grey w3-m w3-small" type="submit"
+                                    value="Skip this question" />
+                            </form>
             </div>
         </div>
     </div>

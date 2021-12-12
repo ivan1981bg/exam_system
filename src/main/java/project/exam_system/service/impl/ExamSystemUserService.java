@@ -35,7 +35,7 @@ public class ExamSystemUserService implements UserDetailsService {
     private UserDetails mapToUserDetails(UserEntity userEntity) {
         List<GrantedAuthority> authorities =
                 userEntity.
-                        getUserRoles().
+                        getRoles().
                         stream().
                         map(r -> new SimpleGrantedAuthority("ROLE_" + r.getRole().name())).
                         collect(Collectors.toList());

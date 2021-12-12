@@ -2,7 +2,9 @@ package project.exam_system.model.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Entity
@@ -24,11 +26,23 @@ public class UserEntity extends BaseEntity{
     @Column(nullable = false)
     private String lastName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private List<UserRoleEntity> roles = new ArrayList<>();
+
+
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "users_answers", joinColumns = @JoinColumn(name = "user_id"))
+    @MapKeyJoinColumn(name = "question_id")
+    @Column(name = "answer")
+    private Map<Question, String> answers = new HashMap<>();
 
     public UserEntity() {
     }
+
+
+
+
 
     public String getUsername() {
         return username;
@@ -76,17 +90,26 @@ public class UserEntity extends BaseEntity{
     }
 
 
-    public List<UserRoleEntity> getUserRoles() {
+    public List<UserRoleEntity> getRoles() {
         return roles;
     }
 
-    public UserEntity setUserRole(List<UserRoleEntity> roles) {
+    public UserEntity setRoles(List<UserRoleEntity> roles) {
         this.roles = roles;
         return this;
     }
 
     public UserEntity addRole(UserRoleEntity roleEntity) {
         this.roles.add(roleEntity);
+        return this;
+    }
+
+    public Map<Question, String> getAnswers() {
+        return answers;
+    }
+
+    public UserEntity setAnswers(Map<Question, String> answers) {
+        this.answers = answers;
         return this;
     }
 }

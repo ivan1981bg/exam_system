@@ -29,5 +29,6 @@ public class ResultServiceImpl implements ResultService {
         ResultServiceModel resultServiceModel = new ResultServiceModel(userServiceModel, examServiceModel, questionIndex, answer);
 
         resultRepository.save(modelMapper.map(resultServiceModel, Result.class));
+
     }
 }

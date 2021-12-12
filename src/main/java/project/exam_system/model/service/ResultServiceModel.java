@@ -14,6 +14,7 @@ public class ResultServiceModel {
 
     private String selectedAnswer;
 
+
     public ResultServiceModel() {
     }
 
@@ -60,4 +61,6 @@ public class ResultServiceModel {
         this.selectedAnswer = selectedAnswer;
         return this;
     }
+
+
 }

@@ -1,5 +1,6 @@
 package project.exam_system.service;
 
+import project.exam_system.model.service.QuestionServiceModel;
 import project.exam_system.model.service.UserRegisterServiceModel;
 import project.exam_system.model.service.UserServiceModel;
 
@@ -13,4 +14,6 @@ public interface UserService {
 
     UserServiceModel getByUsername(String username);
     List<UserServiceModel> getAll();
+
+    void storeUserAnswer(String username,Long examId, Integer questionIndex, String answer);
 }
