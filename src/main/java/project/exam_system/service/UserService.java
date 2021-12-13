@@ -16,4 +16,6 @@ public interface UserService {
     List<UserServiceModel> getAll();
 
     void storeUserAnswer(String username,Long examId, Integer questionIndex, String answer);
+
+    UserServiceModel makeAdmin(Long id);
 }

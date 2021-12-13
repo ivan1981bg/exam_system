@@ -1,5 +1,6 @@
 package project.exam_system.service.impl;
 
+import org.hibernate.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,10 +13,7 @@ import project.exam_system.model.entities.Question;
 import project.exam_system.model.entities.UserEntity;
 import project.exam_system.model.entities.UserRoleEntity;
 import project.exam_system.model.entities.enums.UserRole;
-import project.exam_system.model.service.ExamServiceModel;
-import project.exam_system.model.service.QuestionServiceModel;
-import project.exam_system.model.service.UserRegisterServiceModel;
-import project.exam_system.model.service.UserServiceModel;
+import project.exam_system.model.service.*;
 import project.exam_system.repository.UserRepository;
 import project.exam_system.repository.UserRoleRepository;
 import project.exam_system.service.ExamService;
@@ -24,6 +22,8 @@ import project.exam_system.service.UserService;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.hibernate.cfg.AvailableSettings.USER;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -116,6 +116,22 @@ public class UserServiceImpl implements UserService {
         Question question = modelMapper.map(questionServiceModel, Question.class);
         user.getAnswers().put(question, answer);
         userRepository.save(user);
+    }
+
+    @Override
+    public UserServiceModel makeAdmin(Long id) {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(null );
+
+        UserServiceModel userServiceModel = modelMapper.map(user, UserServiceModel.class);
+        userServiceModel.getUserRoles().clear();
+
+        UserRoleServiceModel userRoleServiceModel = userRoleService.getByUserRole(UserRole.USER);
+
+        userServiceModel.getUserRoles().add(userRoleService.getByUserRole(UserRole.USER));
+        userServiceModel.getUserRoles().add(userRoleService.getByUserRole(UserRole.ADMIN));
+
+        return modelMapper.map(userRepository.save(modelMapper.map(userServiceModel, UserEntity.class)), UserServiceModel.class);
     }
 
 

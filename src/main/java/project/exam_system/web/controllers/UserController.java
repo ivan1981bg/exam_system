@@ -1,13 +1,11 @@
 package project.exam_system.web.controllers;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.exam_system.model.binding.UserRegisterBindingModel;
@@ -94,5 +92,16 @@ public class UserController {
         userService.registerAndLoginUser(userRegisterServiceModel);
 
         return "redirect:/home";
+    }
+
+
+    @PostMapping("/set-admin/{userId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView setAdminRole(@PathVariable Long userId, ModelAndView modelAndView) {
+        System.out.println();
+
+        userService.makeAdmin(userId);
+        modelAndView.setViewName("redirect:/admin/all-users");
+        return modelAndView;
     }
 }
