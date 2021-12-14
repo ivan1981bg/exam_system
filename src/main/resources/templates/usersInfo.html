@@ -20,7 +20,7 @@
 	 			<th>Last name</th>
 	 			<th>Email</th>
 	 			<th>Account</th>
-
+				<th>Actions</th>
 	 		</tr>
 	 	</thead>
 	 	<tbody>
@@ -29,11 +29,14 @@
 	 			<td th:text="${u.firstName}"></td>
 	 			<td th:text="${u.lastName}"></td>
 	 			<td th:text="${u.email}"></td>
-				<th:block th:each="userRoles : ${u.userRoles}">
-					<td>
-						<li th:utext="${userRoles.userRole}"></li>
-					</td>
-				</th:block>
+
+				<td th:text="${u.userRoles.get(0).userRole}"></td>
+
+<!--				<th:block th:each="userRoles : ${u.userRoles}">-->
+<!--					<td>-->
+<!--						<li th:utext="${userRoles.userRole}"></li>-->
+<!--					</td>-->
+<!--				</th:block>-->
 
 				<th:block sec:authorize="hasRole('ROLE_ROOT')">
 					<th:block th:if="${#lists.size(u.userRoles) == 2}">

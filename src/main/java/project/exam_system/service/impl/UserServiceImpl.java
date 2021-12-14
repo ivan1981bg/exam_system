@@ -1,6 +1,6 @@
 package project.exam_system.service.impl;
 
-import org.hibernate.ObjectNotFoundException;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import project.exam_system.error.ObjectNotFoundException;
 import project.exam_system.model.entities.Question;
 import project.exam_system.model.entities.UserEntity;
 import project.exam_system.model.entities.UserRoleEntity;
@@ -121,15 +122,27 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserServiceModel makeAdmin(Long id) {
         UserEntity user = userRepository.findById(id)
-                .orElseThrow(null );
+                .orElseThrow(() -> new ObjectNotFoundException("Invalid user identifier!") );
 
         UserServiceModel userServiceModel = modelMapper.map(user, UserServiceModel.class);
         userServiceModel.getUserRoles().clear();
 
-        UserRoleServiceModel userRoleServiceModel = userRoleService.getByUserRole(UserRole.USER);
 
         userServiceModel.getUserRoles().add(userRoleService.getByUserRole(UserRole.USER));
         userServiceModel.getUserRoles().add(userRoleService.getByUserRole(UserRole.ADMIN));
+
+        return modelMapper.map(userRepository.save(modelMapper.map(userServiceModel, UserEntity.class)), UserServiceModel.class);
+    }
+
+    @Override
+    public UserServiceModel makeUser(Long id) {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Invalid user identifier!"));
+
+        UserServiceModel userServiceModel = modelMapper.map(user, UserServiceModel.class);
+        userServiceModel.getUserRoles().clear();
+
+        userServiceModel.getUserRoles().add(userRoleService.getByUserRole(UserRole.USER));
 
         return modelMapper.map(userRepository.save(modelMapper.map(userServiceModel, UserEntity.class)), UserServiceModel.class);
     }

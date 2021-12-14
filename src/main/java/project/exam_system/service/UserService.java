@@ -18,4 +18,5 @@ public interface UserService {
     void storeUserAnswer(String username,Long examId, Integer questionIndex, String answer);
 
     UserServiceModel makeAdmin(Long id);
+    UserServiceModel makeUser(Long id);
 }

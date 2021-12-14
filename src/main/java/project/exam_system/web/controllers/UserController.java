@@ -104,4 +104,13 @@ public class UserController {
         modelAndView.setViewName("redirect:/admin/all-users");
         return modelAndView;
     }
+
+    @PostMapping("/set-user/{userId}")
+    @PreAuthorize("hasRole('ROLE_ROOT')")
+    public ModelAndView setUserRole(@PathVariable Long userId, ModelAndView modelAndView) {
+        userService.makeUser(userId);
+        modelAndView.setViewName("redirect:/admin/all-users");
+        return modelAndView;
+    }
+
 }
