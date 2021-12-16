@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import project.exam_system.service.ExamService;
+import project.exam_system.web.annotations.PageTitle;
 
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +20,7 @@ public class HomeController {
 
     @GetMapping("/")
     @PreAuthorize("isAnonymous()")
+    @PageTitle("Index")
     public String index(HttpSession httpSession){
 
 
@@ -27,6 +29,7 @@ public class HomeController {
 
     @GetMapping("/home")
     @PreAuthorize("isAuthenticated()")
+    @PageTitle("Home")
     public String home(Model model){
 
         model.addAttribute("exams", examService.getAll());
