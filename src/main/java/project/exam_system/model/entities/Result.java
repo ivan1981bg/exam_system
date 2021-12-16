@@ -16,9 +16,8 @@ public class Result extends BaseEntity{
     @ManyToOne
     private Exam exam;
 
-    private Integer questionOrder;
+    private Integer totalCorrect;
 
-    private String selectedAnswer;
 
     public Result() {
     }
@@ -41,23 +40,12 @@ public class Result extends BaseEntity{
         return this;
     }
 
-    public Integer getQuestionOrder() {
-        return questionOrder;
+    public Integer getTotalCorrect() {
+        return totalCorrect;
     }
 
-    public Result setQuestionOrder(Integer questionOrder) {
-        this.questionOrder = questionOrder;
+    public Result setTotalCorrect(Integer totalCorrect) {
+        this.totalCorrect = totalCorrect;
         return this;
     }
-
-    public String getSelectedAnswer() {
-        return selectedAnswer;
-    }
-
-    public Result setSelectedAnswer(String selectedAnswer) {
-        this.selectedAnswer = selectedAnswer;
-        return this;
-    }
-
-
 }

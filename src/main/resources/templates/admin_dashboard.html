@@ -6,6 +6,7 @@
 
 
 <main>
+    <nav th:replace="~{fragments/Navigation :: topBar}"></nav>
     <div class="header-area">
         <div class="main-header header-sticky">
             <div class="container-fluid">
@@ -17,9 +18,6 @@
                                 <nav>
                                     <ul id="navigation">
                                         <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                                            <li><a th:href="@{/admin/all-users}">Manage Users</a></li>
-                                            <li><a th:href="@{/exams}">Manage Exams</a></li>
-                                            <li><a th:href="@{/admin/create-new}">Create New Exam</a></li>
                                             <li><a th:href="@{/specialty/all}">All Specialties</a></li>
                                             <li><a th:href="@{/city/create}">Add City</a></li>
                                             <li><a th:href="@{/specialty/create}">Add Specialty</a></li>

@@ -50,7 +50,7 @@ public class QuestionController {
                                Model model) {
 
         ExamServiceModel examServiceModel = examService.getById(examId);
-        int numberOfQuestions = examServiceModel.getNumberOfQuestions();
+        int numberOfQuestions = examServiceModel.getQuestions().size();
         List<QuestionServiceModel> questions = examServiceModel.getQuestions();
         if (questionIndex < numberOfQuestions) {
 
@@ -97,7 +97,7 @@ public class QuestionController {
 
 
         String username = principal.getName();
-        resultService.saveResult(username, examService.getById(examId), questionIndex, "");
+        userService.storeUserAnswer(username, examId,questionIndex, selectedAnswer);
 
         return "redirect:/questions/show?e=" + examId + "&q=" + (questionIndex + 1);
     }

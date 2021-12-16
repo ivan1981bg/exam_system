@@ -39,48 +39,11 @@
                     <td class="col-md-1 text-center red-color">
                         <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                             <th:block>
-                                <li><a th:href="@{/exams/delete/{id}(id=${exam.id})}">DELETE</a></li>
+                                <a th:href="@{/exams/delete/{id}(id=${exam.id})}">DELETE</a>
                             </th:block>
                         </th:block>
                     </td>
 
-
-<!--
-                    <th:block th:each="userRoles : ${user.userRoles}">
-                        <td class="col-lg-1 text-center">
-                            <li th:utext="${userRoles.userRole}"></li>
-                        </td>
-                    </th:block>
-
-
-                    <th:block sec:authorize="hasRole('ROLE_ROOT')">
-                        <th:block th:if="${#lists.size(user.userRoles) == 2}">
-                            <td class="col-md-1 text-center">
-                                <form th:action="@{/user/set-user/{id}(id=${user.id})}" method="post">
-                                    <button style="color: #0a0f17">USER</button>
-                                </form>
-                            </td>
-                            <td class="col-md-1 text-center">
-                                <li><a th:href="@{/user/delete/{id}(id=${user.id})}">DELETE</a></li>
-                            </td>
-                        </th:block>
-                    </th:block>
-
-                    <th:block th:if="${#lists.size(user.userRoles) == 1}">
-                        <td class="col-md-1 text-center">
-                            <form th:action="@{/user/set-admin/{id}(id=${user.id})}" method="post">
-                                <button style="color: #0a0f17">ADMIN</button>
-                            </form>
-                        </td>
-                    </th:block>
-
-                    <td class="col-md-1 text-center red-color">
-                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                            <th:block th:if="${#lists.size(user.userRoles) == 1}">
-                                <li><a th:href="@{/user/delete/{id}(id=${user.id})}">DELETE</a></li>
-                            </th:block>
-                        </th:block>
-                    </td>-->
                 </tr>
             </th:block>
             </tbody>

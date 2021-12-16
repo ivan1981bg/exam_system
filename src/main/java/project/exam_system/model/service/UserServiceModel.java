@@ -1,6 +1,8 @@
 package project.exam_system.model.service;
 
+
 import java.util.List;
+import java.util.Map;
 
 public class UserServiceModel {
     private Long id;
@@ -14,6 +16,8 @@ public class UserServiceModel {
     public List<UserRoleServiceModel> getUserRoles() {
         return userRoles;
     }
+
+    private Map<QuestionServiceModel, String> answers;
 
     public UserServiceModel setUserRoles(List<UserRoleServiceModel> userRoles) {
         this.userRoles = userRoles;
@@ -74,6 +78,15 @@ public class UserServiceModel {
 
     public UserServiceModel setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public Map<QuestionServiceModel, String> getAnswers() {
+        return answers;
+    }
+
+    public UserServiceModel setAnswers(Map<QuestionServiceModel, String> answers) {
+        this.answers = answers;
         return this;
     }
 }

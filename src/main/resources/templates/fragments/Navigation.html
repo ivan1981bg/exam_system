@@ -12,30 +12,24 @@
     <div class="w3-bar w3-light-grey ">
         <a th:href="@{/home}" class="w3-bar-item w3-button w3-hover-none w3-text-grey w3-hover-text-black">Home</a>
         <div class="w3-dropdown-hover"
-             sec:authorize="hasRole('MODERATOR')">
+             sec:authorize="hasRole('ROLE_ADMIN')">
             <div class="w3-text-grey" style="padding-top: 8px; padding-left: 8px; padding-right: 8px;"> Users &#9660;
             </div>
             <div class="w3-dropdown-content w3-bar-block w3-light-grey" style="padding-top: 8px;">
                 <a class="w3-bar-item w3-button w3-hover-none w3-text-grey"
-                   sec:authorize="hasRole('ADMINISTRATOR')"
-                   th:href="@{/users}">Overview</a>
-                <a class="w3-bar-item w3-button w3-hover-none w3-text-grey"
-                   th:href="@{/users/usersEng}">Engagement</a>
+                   th:href="@{/admin/all-users}">Manage Users</a>
             </div>
         </div>
         <div class="w3-dropdown-hover"
-             sec:authorize="hasRole('CONTRIBUTOR')">
-            <div class="w3-text-grey" style="padding-top: 8px; padding-left: 16px; padding-right: 8px;"> Questions
+             sec:authorize="hasRole('ROLE_ADMIN')">
+            <div class="w3-text-grey" style="padding-top: 8px; padding-left: 16px; padding-right: 8px;"> Exams
                 &#9660;
             </div>
             <div class="w3-dropdown-content w3-bar-block w3-light-grey" style="padding-top: 8px;">
                 <a class="w3-bar-item w3-button w3-hover-none w3-text-grey"
-                   sec:authorize="hasRole('MODERATOR')"
-                   th:href="@{/questions}">Show all</a>
+                   th:href="@{/exams}">Manage exams</a>
                 <a class="w3-bar-item w3-button w3-hover-none w3-text-grey"
-                   th:href="@{/questions/byMe}">Show added by me</a>
-                <a class="w3-bar-item w3-button w3-hover-none w3-text-grey"
-                   th:href="@{/questions/new}">Add new</a>
+                   th:href="@{/admin/create-new}">Create new exam</a>
             </div>
         </div>
         <a th:href="@{/about}" class="w3-bar-item w3-button w3-hover-none w3-text-grey w3-hover-text-black">About</a>

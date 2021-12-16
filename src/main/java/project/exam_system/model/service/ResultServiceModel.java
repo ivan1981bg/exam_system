@@ -10,25 +10,22 @@ public class ResultServiceModel {
 
     private ExamServiceModel exam;
 
-    private Integer questionOrder;
+    private Integer totalCorrect;
 
-    private String selectedAnswer;
 
 
     public ResultServiceModel() {
     }
 
-    public ResultServiceModel(UserServiceModel user, ExamServiceModel exam, Integer questionOrder, String selectedAnswer) {
+    public ResultServiceModel(UserServiceModel user, ExamServiceModel exam, Integer totalCorrect) {
         this.user = user;
         this.exam = exam;
-        this.questionOrder = questionOrder;
-        this.selectedAnswer = selectedAnswer;
+        this.totalCorrect = totalCorrect;
     }
 
     public UserServiceModel getUser() {
         return user;
     }
-
 
     public ResultServiceModel setUser(UserServiceModel user) {
         this.user = user;
@@ -44,23 +41,12 @@ public class ResultServiceModel {
         return this;
     }
 
-    public Integer getQuestionOrder() {
-        return questionOrder;
+    public Integer getTotalCorrect() {
+        return totalCorrect;
     }
 
-    public ResultServiceModel setQuestionOrder(Integer questionOrder) {
-        this.questionOrder = questionOrder;
+    public ResultServiceModel setTotalCorrect(Integer totalCorrect) {
+        this.totalCorrect = totalCorrect;
         return this;
     }
-
-    public String getSelectedAnswer() {
-        return selectedAnswer;
-    }
-
-    public ResultServiceModel setSelectedAnswer(String selectedAnswer) {
-        this.selectedAnswer = selectedAnswer;
-        return this;
-    }
-
-
 }

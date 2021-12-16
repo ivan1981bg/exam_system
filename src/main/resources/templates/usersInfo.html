@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html 	xmlns:th="http://www.thymeleaf.org"
-		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+
+
+>
 <head th:replace="fragments/commons :: head"></head>
 <body>
 <header th:replace="fragments/commons :: navigation"></header>
@@ -32,12 +35,6 @@
 
 				<td th:text="${u.userRoles.get(0).userRole}"></td>
 
-<!--				<th:block th:each="userRoles : ${u.userRoles}">-->
-<!--					<td>-->
-<!--						<li th:utext="${userRoles.userRole}"></li>-->
-<!--					</td>-->
-<!--				</th:block>-->
-
 				<th:block sec:authorize="hasRole('ROLE_ROOT')">
 					<th:block th:if="${#lists.size(u.userRoles) == 2}">
 						<td class="col-md-1 text-center">
@@ -46,7 +43,7 @@
 							</form>
 						</td>
 						<td class="col-md-1 text-center red-color">
-							<li><a th:href="@{/users/delete/{id}(id=${u.id})}">DELETE</a></li>
+							<a th:href="@{/users/delete/{id}(id=${u.id})}">DELETE</a>
 						</td>
 					</th:block>
 				</th:block>
@@ -63,7 +60,7 @@
 				<td class="col-md-1 text-center red-color">
 					<th:block sec:authorize="hasRole('ROLE_ADMIN')">
 						<th:block th:if="${#lists.size(u.userRoles) == 1}">
-							<li><a th:href="@{/user/delete/{id}(id=${u.id})}">DELETE</a></li>
+							<a th:href="@{/user/delete/{id}(id=${u.id})}">DELETE</a>
 
 						</th:block>
 					</th:block>

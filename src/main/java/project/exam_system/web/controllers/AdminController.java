@@ -66,16 +66,16 @@ public class AdminController {
 
 
     @PostMapping("/create-new")
-    public String addQuestion(@Valid Exam quiz, BindingResult bindingResult, ModelMap model, RedirectAttributes redirectAttrs) {
+    public String addQuestion(@Valid Exam exam, BindingResult bindingResult, ModelMap model, RedirectAttributes redirectAttrs) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("numberOfQuestions", quiz.getQuestions().size());
+            model.addAttribute("numberOfQuestions", exam.getQuestions().size());
             model.addAttribute("MAX_QUESTIONS", 20);
             return "new-exam";
         }
 
 
-            examService.save(quiz);
+            examService.save(exam);
 
         return "redirect:panel";
     }

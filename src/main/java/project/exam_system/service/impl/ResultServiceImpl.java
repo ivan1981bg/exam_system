@@ -23,12 +23,12 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public void saveResult(String userName, ExamServiceModel examServiceModel,int questionIndex, String answer) {
+    public ResultServiceModel saveResult(String userName, ExamServiceModel examServiceModel,Integer totalCorrect) {
         UserServiceModel userServiceModel = userService.getByUsername(userName);
 
-        ResultServiceModel resultServiceModel = new ResultServiceModel(userServiceModel, examServiceModel, questionIndex, answer);
+        ResultServiceModel resultServiceModel = new ResultServiceModel(userServiceModel, examServiceModel, totalCorrect);
 
-        resultRepository.save(modelMapper.map(resultServiceModel, Result.class));
-
+        Result result = resultRepository.save(modelMapper.map(resultServiceModel, Result.class));
+        return modelMapper.map(result, ResultServiceModel.class);
     }
 }

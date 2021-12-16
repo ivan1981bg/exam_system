@@ -102,13 +102,6 @@ public class ExamController {
             answerServiceModels.add(new AnswerServiceModel(questionBindingModel.getAnswersText().get(i), i));
         }
         answerService.saveAnswers(answerServiceModels, questionServiceModel);
-
-
-
-
-
-
-        System.out.println();
         return "redirect:";
 
     }
@@ -126,9 +119,10 @@ public class ExamController {
     @GetMapping("/completed/{examId}")
     public String onCompletion(Principal principal, ModelMap model, @PathVariable Long examId) {
 
-        UserServiceModel userServiceModel = userService.getByUsername(principal.getName());
+        Integer totalCorrect = answerService.getTotalCorrect(principal.getName(), examService.getById(examId));
 
-        //model.addAttribute("score", resultService.getUserResult(userServiceModel));
+        resultService.saveResult(principal.getName(), examService.getById(examId),totalCorrect);
+        model.addAttribute("score", totalCorrect);
         return "exam-completion";
     }
 }
