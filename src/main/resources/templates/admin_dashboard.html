@@ -16,27 +16,13 @@
                             <!-- Main-menu -->
                             <div class="main-menu f-right d-none d-lg-block">
                                 <nav>
-                                    <ul id="navigation">
-                                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                                            <li><a th:href="@{/specialty/all}">All Specialties</a></li>
-                                            <li><a th:href="@{/city/create}">Add City</a></li>
-                                            <li><a th:href="@{/specialty/create}">Add Specialty</a></li>
-                                        </th:block>
-                                        <th:block sec:authorize="hasRole('ROLE_USER')">
-                                            <li><a th:href="@{/user/dashboard}">Dashboard</a></li>
-                                        </th:block>
-                                        <th:block sec:authorize="hasRole('ROLE_DOCTOR')">
-                                            <li><a th:href="@{/doctor/dashboard}">Dashboard</a></li>
-                                        </th:block>
-                                    </ul>
+
                                 </nav>
                             </div>
                         </div>
                     </div>
                     <!-- Mobile Menu -->
-                    <div class="col-12">
-                        <div class="mobile_menu d-block d-lg-none"></div>
-                    </div>
+
                 </div>
             </div>
         </div>
