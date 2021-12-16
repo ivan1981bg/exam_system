@@ -60,7 +60,7 @@
 				<td class="col-md-1 text-center red-color">
 					<th:block sec:authorize="hasRole('ROLE_ADMIN')">
 						<th:block th:if="${#lists.size(u.userRoles) == 1}">
-							<a th:href="@{/user/delete/{id}(id=${u.id})}">DELETE</a>
+							<a th:href="@{/users/delete/{id}(id=${u.id})}">DELETE</a>
 
 						</th:block>
 					</th:block>

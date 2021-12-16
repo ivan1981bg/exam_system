@@ -31,11 +31,11 @@ public class UserEntity extends BaseEntity{
 
 
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "users_answers", joinColumns = @JoinColumn(name = "user_id"))
     @MapKeyJoinColumn(name = "question_id")
     @Column(name = "answer")
-    private Map<Question, String> answers = new HashMap<>();
+    private Map<Question, String> answers;
 
     public UserEntity() {
     }

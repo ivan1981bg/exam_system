@@ -19,4 +19,6 @@ public interface UserService {
 
     UserServiceModel makeAdmin(Long id);
     UserServiceModel makeUser(Long id);
+    void deleteUser(Long id);
+    UserServiceModel getById(Long id);
 }

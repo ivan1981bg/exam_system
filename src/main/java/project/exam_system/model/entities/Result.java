@@ -10,8 +10,7 @@ import javax.persistence.Table;
 @Table(name = "results")
 public class Result extends BaseEntity{
 
-    @ManyToOne
-    private UserEntity user;
+    private String fullName;
 
     @ManyToOne
     private Exam exam;
@@ -22,12 +21,12 @@ public class Result extends BaseEntity{
     public Result() {
     }
 
-    public UserEntity getUser() {
-        return user;
+    public String getFullName() {
+        return fullName;
     }
 
-    public Result setUser(UserEntity user) {
-        this.user = user;
+    public Result setFullName(String fullName) {
+        this.fullName = fullName;
         return this;
     }
 

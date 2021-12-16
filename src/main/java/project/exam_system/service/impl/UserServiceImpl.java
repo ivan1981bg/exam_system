@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
         QuestionServiceModel questionServiceModel = examServiceModel.getQuestions().get(questionIndex);
         Question question = modelMapper.map(questionServiceModel, Question.class);
         user.getAnswers().put(question, answer);
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
     }
 
     @Override
@@ -147,5 +147,18 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(userRepository.save(modelMapper.map(userServiceModel, UserEntity.class)), UserServiceModel.class);
     }
 
+    @Override
+    public UserServiceModel getById(Long id) {
+        return userRepository.findById(id)
+                .map(user -> modelMapper.map(user, UserServiceModel.class))
+                .orElseThrow(() -> new ObjectNotFoundException("Invalid user identifier!"));
+    }
 
+    @Override
+    public void deleteUser(Long id) {
+        UserEntity user = userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Invalid user identifier!"));
+
+        userRepository.delete(user);
+    }
 }

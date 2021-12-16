@@ -45,10 +45,9 @@ public class AnswerServiceImpl implements AnswerService {
         answerServiceModels.stream().
                 map(answerServiceModel -> {
                     answerServiceModel.setQuestion(questionServiceModel);
-                    Answer answer = modelMapper.map(answerServiceModel, Answer.class);
-                    return answer;
+                    return modelMapper.map(answerServiceModel, Answer.class);
                 }).
-                forEach(answerRepository::save);
+                forEach(answerRepository::saveAndFlush);
     }
 
     @Override

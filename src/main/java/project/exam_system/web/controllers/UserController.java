@@ -113,4 +113,15 @@ public class UserController {
         return modelAndView;
     }
 
+
+
+
+    @GetMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView deleteUserConfirm(@PathVariable Long id, ModelAndView modelAndView) {
+        userService.deleteUser(id);
+        modelAndView.setViewName("redirect:/admin/all-users");
+        return modelAndView;
+    }
+
 }
