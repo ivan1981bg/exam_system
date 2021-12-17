@@ -16,7 +16,7 @@ public class Result extends BaseEntity{
     private Exam exam;
 
     private Integer totalCorrect;
-
+    private Integer numberOfQuestions;
 
     public Result() {
     }
@@ -45,6 +45,15 @@ public class Result extends BaseEntity{
 
     public Result setTotalCorrect(Integer totalCorrect) {
         this.totalCorrect = totalCorrect;
+        return this;
+    }
+
+    public Integer getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public Result setNumberOfQuestions(Integer numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
         return this;
     }
 }

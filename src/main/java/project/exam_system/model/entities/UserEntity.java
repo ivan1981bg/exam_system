@@ -31,7 +31,7 @@ public class UserEntity extends BaseEntity{
 
 
 
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "users_answers", joinColumns = @JoinColumn(name = "user_id"))
     @MapKeyJoinColumn(name = "question_id")
     @Column(name = "answer")

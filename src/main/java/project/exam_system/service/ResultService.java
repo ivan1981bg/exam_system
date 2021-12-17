@@ -4,8 +4,10 @@ import project.exam_system.model.service.ExamServiceModel;
 import project.exam_system.model.service.ResultServiceModel;
 import project.exam_system.model.service.UserServiceModel;
 
+import java.util.List;
+
 public interface ResultService {
-    ResultServiceModel saveResult(String userName, ExamServiceModel examServiceModel, Integer totalCorrect);
+    ResultServiceModel saveResult(UserServiceModel userServiceModel, ExamServiceModel examServiceModel, Integer totalCorrect);
 
-
+    List<ResultServiceModel> getAll();
 }

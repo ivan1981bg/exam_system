@@ -21,7 +21,9 @@ import project.exam_system.service.ExamService;
 import project.exam_system.service.UserRoleService;
 import project.exam_system.service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.hibernate.cfg.AvailableSettings.USER;
@@ -115,6 +117,7 @@ public class UserServiceImpl implements UserService {
         ExamServiceModel examServiceModel = examService.getById(examId);
         QuestionServiceModel questionServiceModel = examServiceModel.getQuestions().get(questionIndex);
         Question question = modelMapper.map(questionServiceModel, Question.class);
+        user.setAnswers(new HashMap());
         user.getAnswers().put(question, answer);
         userRepository.saveAndFlush(user);
     }

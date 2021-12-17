@@ -121,8 +121,10 @@ public class ExamController {
 
         Integer totalCorrect = answerService.getTotalCorrect(principal.getName(), examService.getById(examId));
 
-        resultService.saveResult(principal.getName(), examService.getById(examId),totalCorrect);
+        UserServiceModel userServiceModel = userService.getByUsername(principal.getName());
+        resultService.saveResult(userServiceModel, examService.getById(examId),totalCorrect);
         model.addAttribute("score", totalCorrect);
+        model.addAttribute("totalQuestions", examService.getById(examId).getNumberOfQuestions());
         return "exam-completion";
     }
 }

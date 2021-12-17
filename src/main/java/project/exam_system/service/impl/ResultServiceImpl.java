@@ -10,6 +10,9 @@ import project.exam_system.repository.ResultRepository;
 import project.exam_system.service.ResultService;
 import project.exam_system.service.UserService;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ResultServiceImpl implements ResultService {
     private final UserService userService;
@@ -23,12 +26,22 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public ResultServiceModel saveResult(String userName, ExamServiceModel examServiceModel,Integer totalCorrect) {
-        UserServiceModel userServiceModel = userService.getByUsername(userName);
+    public ResultServiceModel saveResult(UserServiceModel userServiceModel, ExamServiceModel examServiceModel,Integer totalCorrect) {
+        StringBuilder fullName = new StringBuilder().append(userServiceModel.getFirstName()).
+        append(" ").
+        append(userServiceModel.getLastName());
 
-        ResultServiceModel resultServiceModel = new ResultServiceModel(userServiceModel, examServiceModel, totalCorrect);
+        ResultServiceModel resultServiceModel = new ResultServiceModel(fullName.toString(), examServiceModel,
+                totalCorrect, examServiceModel.getNumberOfQuestions());
 
         Result result = resultRepository.save(modelMapper.map(resultServiceModel, Result.class));
         return modelMapper.map(result, ResultServiceModel.class);
+    }
+
+    @Override
+    public List<ResultServiceModel> getAll() {
+        return resultRepository.findAll().stream()
+                .map(user -> modelMapper.map(user, ResultServiceModel.class))
+                .collect(Collectors.toList());
     }
 }

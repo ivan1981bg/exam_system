@@ -6,29 +6,30 @@ import project.exam_system.model.entities.UserEntity;
 import javax.persistence.ManyToOne;
 
 public class ResultServiceModel {
-    private UserServiceModel user;
+    private String fullName;
 
     private ExamServiceModel exam;
 
     private Integer totalCorrect;
-
+    private Integer numberOfQuestions;
 
 
     public ResultServiceModel() {
     }
 
-    public ResultServiceModel(UserServiceModel user, ExamServiceModel exam, Integer totalCorrect) {
-        this.user = user;
+    public ResultServiceModel(String fullName, ExamServiceModel exam, Integer totalCorrect, Integer numberOfQuestions) {
+        this.fullName = fullName;
         this.exam = exam;
         this.totalCorrect = totalCorrect;
+        this.numberOfQuestions = numberOfQuestions;
     }
 
-    public UserServiceModel getUser() {
-        return user;
+    public String getFullName() {
+        return fullName;
     }
 
-    public ResultServiceModel setUser(UserServiceModel user) {
-        this.user = user;
+    public ResultServiceModel setFullName(String fullName) {
+        this.fullName = fullName;
         return this;
     }
 
@@ -49,4 +50,15 @@ public class ResultServiceModel {
         this.totalCorrect = totalCorrect;
         return this;
     }
+
+    public Integer getNumberOfQuestions() {
+        return numberOfQuestions;
+    }
+
+    public ResultServiceModel setNumberOfQuestions(Integer numberOfQuestions) {
+        this.numberOfQuestions = numberOfQuestions;
+        return this;
+    }
+
+
 }

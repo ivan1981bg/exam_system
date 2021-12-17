@@ -3,19 +3,14 @@ package project.exam_system.web.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.exam_system.model.service.ExamServiceModel;
 import project.exam_system.model.service.QuestionServiceModel;
 import project.exam_system.model.view.QuestionViewModel;
-import project.exam_system.service.QuestionService;
 import project.exam_system.service.ExamService;
-import project.exam_system.service.ResultService;
 import project.exam_system.service.UserService;
 
-import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -24,16 +19,12 @@ import java.util.List;
 public class QuestionController {
 
     private final ExamService examService;
-    private final QuestionService questionService;
     private final ModelMapper modelMapper;
-    private final ResultService resultService;
     private final UserService userService;
 
-    public QuestionController(ExamService examService, QuestionService questionService, ModelMapper modelMapper, ResultService resultService, UserService userService) {
+    public QuestionController(ExamService examService, ModelMapper modelMapper, UserService userService) {
         this.examService = examService;
-        this.questionService = questionService;
         this.modelMapper = modelMapper;
-        this.resultService = resultService;
         this.userService = userService;
     }
 
@@ -78,22 +69,16 @@ public class QuestionController {
             redirectAttributes.addFlashAttribute("message", "Please select an answer before clicking the submit button.");
             return "redirect:show?e=" + examId + "&q=" + questionIndex;
         }
-        String username = principal.getName();
-
-        userService.storeUserAnswer(username, examId,questionIndex, selectedAnswer);
-
+        userService.storeUserAnswer(principal.getName(), examId,questionIndex, selectedAnswer);
 
         return "redirect:/questions/show?e=" + examId + "&q=" + (questionIndex + 1);
     }
 
     @PostMapping("/skip")
     public String skip( Principal principal,
-                                //        @RequestParam(name = "qId") Long questionId,
                                 @RequestParam(name = "e") Long examId,
                                 @RequestParam(defaultValue = "") String selectedAnswer,
-                                @RequestParam(name = "q") int questionIndex,
-                                RedirectAttributes redirectAttributes) {
-
+                                @RequestParam(name = "q") int questionIndex) {
 
 
         String username = principal.getName();
@@ -101,44 +86,4 @@ public class QuestionController {
 
         return "redirect:/questions/show?e=" + examId + "&q=" + (questionIndex + 1);
     }
-
-
-
-
-
-
-
-
-    @PostMapping("/new")
-    public String addQuestion(@Valid QuestionServiceModel question, BindingResult bindingResult, ModelMap model, RedirectAttributes redirectAttrs) {
-
-        System.out.println();
-
-        System.out.println();
-        /*
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("numberOfAnswers", question.getAnswers().size());
-            model.addAttribute("MAX_ANSWERS", 5);
-            return "newQuestion";
-        }
-        if (questionService.exist(question)) {
-            redirectAttrs.addAttribute("numberOfAnswers", question.getAnswers().size());
-            redirectAttrs.addFlashAttribute("message", "A question like this already exist.");
-            redirectAttrs.addFlashAttribute(question);
-            return"redirect:/questions/new";
-        }
-        try {
-            questionService.save(question);
-        } catch (Exception e) {
-            redirectAttrs.addAttribute("numberOfAnswers", question.getAnswers().size());
-            redirectAttrs.addFlashAttribute("message", "There was an error while adding the question.");
-            redirectAttrs.addFlashAttribute(question);
-            return"redirect:/questions/new";
-        }*/
-        return "redirect:/questions/byMe";
-    }
-
-
-
-
 }

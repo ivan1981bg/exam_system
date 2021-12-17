@@ -43,7 +43,6 @@ public class AdminController {
                 .map(userServiceModel -> modelMapper.map(userServiceModel, UsersAllViewModel.class))
                 .collect(Collectors.toList()));
 
-        //modelAndView.setViewName("all-users");
         modelAndView.setViewName("usersInfo");
         return modelAndView;
     }
