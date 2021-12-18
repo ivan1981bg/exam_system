@@ -1,10 +1,16 @@
 package project.exam_system.model.entities;
 
+
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 @Entity
@@ -29,13 +35,8 @@ public class UserEntity extends BaseEntity{
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles = new ArrayList<>();
 
-
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "users_answers", joinColumns = @JoinColumn(name = "user_id"))
-    @MapKeyJoinColumn(name = "question_id")
-    @Column(name = "answer")
-    private Map<Question, String> answers;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Set<UserAnswer> userAnswers;
 
     public UserEntity() {
     }
@@ -104,12 +105,12 @@ public class UserEntity extends BaseEntity{
         return this;
     }
 
-    public Map<Question, String> getAnswers() {
-        return answers;
+    public Set<UserAnswer> getUserAnswers() {
+        return userAnswers;
     }
 
-    public UserEntity setAnswers(Map<Question, String> answers) {
-        this.answers = answers;
+    public UserEntity setUserAnswers(Set<UserAnswer> userAnswers) {
+        this.userAnswers = userAnswers;
         return this;
     }
 }

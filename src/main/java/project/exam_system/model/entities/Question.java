@@ -21,7 +21,7 @@ public class Question extends BaseEntity{
     private Integer order;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Answer> answers =new ArrayList<>();
+    private List<Answer> answers;
 
     @Column(name = "correct_answer")
     private Integer correctAnswer;

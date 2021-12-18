@@ -20,7 +20,7 @@ public class UserRegisterBindingModel {
 
 
 
-    @Size(min = 2, max = 20, message = "The first name must be between 2 and 20 characters long!")
+    @Size(min = 3, max = 20, message = "The first name must be between 3 and 20 characters long!")
     private String firstName;
 
     @Size(min = 2, max = 20, message = "The last name must be between 2 and 20 characters long!")

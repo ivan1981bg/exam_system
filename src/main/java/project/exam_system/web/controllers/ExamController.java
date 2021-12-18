@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.exam_system.model.binding.QuestionBindingModel;
+import project.exam_system.model.entities.Exam;
 import project.exam_system.model.service.*;
 import project.exam_system.service.*;
+import project.exam_system.web.annotations.PageTitle;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -95,7 +97,9 @@ public class ExamController {
                 setOrder(examServiceModel.getQuestions().size()).
                 setAnswers(new ArrayList<>());
 
+
         questionServiceModel = questionService.save(questionServiceModel);
+
 
         List<AnswerServiceModel> answerServiceModels = new ArrayList<>();
         for (int i = 0; i < questionBindingModel.getAnswersText().size(); i++){
@@ -107,24 +111,25 @@ public class ExamController {
     }
 
     @GetMapping("/start/{examId}")
-    public String startExam(RedirectAttributes redirectAttr, @PathVariable Long examId) {
-
-        redirectAttr.addAttribute("e", examId);
-        redirectAttr.addAttribute("q", 0);
+    public String startExam(@PathVariable Long examId, Model model ) {
 
 
-        return "redirect:/questions/show";
+
+        return "forward:/questions/show?e=" + examId + "&q=0";
     }
 
     @GetMapping("/completed/{examId}")
-    public String onCompletion(Principal principal, ModelMap model, @PathVariable Long examId) {
-
-        Integer totalCorrect = answerService.getTotalCorrect(principal.getName(), examService.getById(examId));
+    @PageTitle("Completition")
+    public String onCompletion(@PathVariable Long examId, Principal principal, ModelMap model) {
 
         UserServiceModel userServiceModel = userService.getByUsername(principal.getName());
+        Integer totalCorrect = answerService.getTotalCorrect(userServiceModel, examService.getById(examId));
+
+
         resultService.saveResult(userServiceModel, examService.getById(examId),totalCorrect);
         model.addAttribute("score", totalCorrect);
-        model.addAttribute("totalQuestions", examService.getById(examId).getNumberOfQuestions());
+        model.addAttribute("totalQuestions", examService.getById(examId).getQuestions().size());
         return "exam-completion";
-    }
+
+            }
 }

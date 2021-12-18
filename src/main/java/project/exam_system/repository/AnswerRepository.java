@@ -13,4 +13,5 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
     List<Answer> getAnswerByQuestionIdAndOrder(Long questionId, Integer order);
 
+    void deleteByQuestionId(Long qId);
 }

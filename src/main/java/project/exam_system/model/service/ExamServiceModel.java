@@ -9,7 +9,6 @@ public class ExamServiceModel {
     private String description;
     private List<QuestionServiceModel> questions;// = new ArrayList<>();
     private Boolean isPublished = false;
-    private Integer numberOfQuestions;
 
     public ExamServiceModel() {
     }
@@ -56,15 +55,6 @@ public class ExamServiceModel {
 
     public ExamServiceModel setPublished(Boolean published) {
         isPublished = published;
-        return this;
-    }
-
-    public Integer getNumberOfQuestions() {
-        return numberOfQuestions;
-    }
-
-    public ExamServiceModel setNumberOfQuestions(Integer numberOfQuestions) {
-        this.numberOfQuestions = numberOfQuestions;
         return this;
     }
 }

@@ -23,9 +23,6 @@ public class Exam extends BaseEntity{
 
     private Boolean isPublished = false;
 
-    private Integer numberOfQuestions;
-
-
     public Exam() {
     }
 
@@ -65,12 +62,4 @@ public class Exam extends BaseEntity{
         return this;
     }
 
-    public Integer getNumberOfQuestions() {
-        return numberOfQuestions;
-    }
-
-    public Exam setNumberOfQuestions(Integer numberOfQuestions) {
-        this.numberOfQuestions = numberOfQuestions;
-        return this;
-    }
 }

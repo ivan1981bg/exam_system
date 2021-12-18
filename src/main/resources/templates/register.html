@@ -16,8 +16,8 @@
                        th:field="*{firstName}"
                        required minlength="2" maxlength="20"
                        autofocus/>
-                <label class="w3-text-red"
-                       th:errors="*{firstName}"> input error </label>
+                <small th:if="${#fields.hasErrors('firstName')}" class="text-danger"
+                       th:errors="*{firstName}"></small>
             </p>
             <p align="left">
                 <label th:for="lastName">Last Name: *</label>

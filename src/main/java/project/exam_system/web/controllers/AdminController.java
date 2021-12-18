@@ -47,19 +47,12 @@ public class AdminController {
         return modelAndView;
     }
 
-    @ModelAttribute("quiz")
-    public Exam createQuiz() {
-        return new Exam();
-    }
-
 
     @GetMapping("/create-new")
-    public String newQuestion(@ModelAttribute Exam quiz,
-                              @RequestParam(name = "numberOfQuestions", defaultValue = "1") int numberOfQuestions,
+    public String newExam(@ModelAttribute Exam exam,
                               ModelMap model) {
 
-        model.addAttribute("numberOfQuestions", numberOfQuestions);
-        model.addAttribute("MAX_QUESTIONS", 20);
+
         return "new-exam";
     }
 
@@ -69,11 +62,8 @@ public class AdminController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("numberOfQuestions", exam.getQuestions().size());
-            model.addAttribute("MAX_QUESTIONS", 20);
             return "new-exam";
         }
-
-
             examService.save(exam);
 
         return "redirect:panel";

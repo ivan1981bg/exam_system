@@ -13,16 +13,7 @@
 
     <div class="w3-panel" align="center">
         <form class="w3-container w3-card w3-light-grey" style="width:80%;"
-              action="#" th:action="@{/admin/create-new}" th:object="${quiz}" method="post">
-            <p th:text="'Number of questions: '"></p>
-            <select th:field = "*{numberOfQuestions}" name="numberOfQuestions" >
-                <option th:each="n : ${#numbers.sequence(1, MAX_QUESTIONS)}"
-                 th:value="${n}" th:text="${n}" th:selected="${n == numberOfQuestions}">
-
-                </option>
-            </select>
-
-
+              action="#" th:action="@{/admin/create-new}" th:object="${exam}" method="post">
             <p align="left">
                 <label th:for="name">Name:</label>
                 <label class="w3-text-red"

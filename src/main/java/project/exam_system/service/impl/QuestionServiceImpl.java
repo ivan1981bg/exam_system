@@ -2,7 +2,9 @@ package project.exam_system.service.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import project.exam_system.error.ObjectNotFoundException;
 import project.exam_system.model.entities.Question;
+import project.exam_system.model.entities.UserEntity;
 import project.exam_system.model.service.QuestionServiceModel;
 import project.exam_system.repository.QuestionRepository;
 import project.exam_system.service.QuestionService;
@@ -32,5 +34,12 @@ public class QuestionServiceImpl implements QuestionService {
     public QuestionServiceModel getQuestionByOrder(Integer order) {
 
         return modelMapper.map(questionRepository.getQuestionByOrder(order), QuestionServiceModel.class);
+    }
+
+    @Override
+    public void deleteQuestion(Long id) {
+
+
+        questionRepository.deleteById(id);
     }
 }

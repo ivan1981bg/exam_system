@@ -32,7 +32,7 @@ public class ResultServiceImpl implements ResultService {
         append(userServiceModel.getLastName());
 
         ResultServiceModel resultServiceModel = new ResultServiceModel(fullName.toString(), examServiceModel,
-                totalCorrect, examServiceModel.getNumberOfQuestions());
+                totalCorrect, examServiceModel.getQuestions().size());
 
         Result result = resultRepository.save(modelMapper.map(resultServiceModel, Result.class));
         return modelMapper.map(result, ResultServiceModel.class);

@@ -6,4 +6,5 @@ import project.exam_system.model.service.QuestionServiceModel;
 public interface QuestionService {
     QuestionServiceModel save(QuestionServiceModel questionServiceModel);
     QuestionServiceModel getQuestionByOrder(Integer order);
+    public void deleteQuestion(Long id);
 }

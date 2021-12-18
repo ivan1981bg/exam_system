@@ -11,7 +11,7 @@ public class Answer extends BaseEntity{
     @NotNull(message = "No answer text provided.")
     private String text;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Question question;
 
     @Column(name = "a_order")

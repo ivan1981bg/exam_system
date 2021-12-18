@@ -6,6 +6,7 @@
 <body>
 <header th:replace="fragments/commons :: navigation"></header>
 <main>
+    <nav th:replace="~{fragments/Navigation :: topBar}"></nav>
     <div class="container">
         <table class="table table-hover w-100 mx-auto">
             <thead>
@@ -23,7 +24,7 @@
                 <tr class="row mx-auto">
                     <th class="col-md-1 text-center" th:utext="${iter.index + 1}"></th>
                     <td class="col-md-2 text-center" th:utext="${exam.name}"></td>
-                    <td class="col-md-2 text-center" th:utext="${exam.questions.size() + '/' +  exam.numberOfQuestions }"></td>
+                    <td class="col-md-2 text-center" th:utext="${exam.questions.size()}"></td>
 
                     <td class="col-md-2 text-center" th:utext="${exam.published}"></td>
 

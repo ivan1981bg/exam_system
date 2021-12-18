@@ -5,27 +5,10 @@
 <header th:replace="fragments/commons :: navigation"></header>
 
 
-<main>
+<main class = "adminBackground">
     <nav th:replace="~{fragments/Navigation :: topBar}"></nav>
-    <div class="header-area">
-        <div class="main-header header-sticky">
-            <div class="container-fluid">
-                <div class="row align-items-center">
-                    <div class="col-xl-10 col-lg-10 col-md-10">
-                        <div class="menu-main d-flex align-items-center justify-content-end">
-                            <!-- Main-menu -->
-                            <div class="main-menu f-right d-none d-lg-block">
-                                <nav>
-
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Mobile Menu -->
-
-                </div>
-            </div>
-        </div>
+    <div class="w3-container w3-padding-large white-color" align="center">
+        <h2 th:text="${'Welcome ' + session.userFirstName}"></h2>
     </div>
 </main>
 <footer th:replace="fragments/commons :: footer"></footer>

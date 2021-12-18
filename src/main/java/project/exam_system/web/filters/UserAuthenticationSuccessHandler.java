@@ -42,13 +42,11 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
                                         org.springframework.security.core.Authentication authentication)
                                         throws IOException, ServletException {
 
-        //String userName
-        //UserServiceModel userServiceModel = userService.getByUsername(user)
-
-
-
         HttpSession session = httpServletRequest.getSession(true);
-        session.setAttribute("userFirstName", authenticatedUserService.getUsername());
+
+        String userName = authenticatedUserService.getUsername();
+        UserServiceModel userServiceModel = userService.getByUsername(userName);
+        session.setAttribute("userFirstName", userServiceModel.getFirstName());
 
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_ADMIN")) {
@@ -57,23 +55,5 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
             redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/home");
         }
 
-        /*
-        String username = authenticatedUserService.getUsername();
-
-        UserServiceModel user = userService.getByUsername(username);
-
-        if (user == null) {
-            redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/users/login");
-        }
-
-        if (doctor == null) {
-            redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/home");
-        } else {
-            if (!doctorService.isAccountCompleted(modelMapper.map(doctor, DoctorServiceModel.class))) {
-                redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/doctor/complete");
-            } else {
-                redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/doctor/dashboard");
-            }
-        }*/
     }
 }
