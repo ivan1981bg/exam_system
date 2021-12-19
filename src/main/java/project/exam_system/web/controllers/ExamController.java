@@ -94,7 +94,6 @@ public class ExamController {
             redirectAttributes.addAttribute("numberOfAnswers", questionBindingModel.getAnswersText().size());
             return "redirect:new_q";
         }
-        //TODO: binding stuff
 
         ExamServiceModel examServiceModel = examService.getById(exam_id);
 
