@@ -97,7 +97,7 @@ public class QuestionController {
     public String deleteQuestion(@RequestParam Long qId,
                                  @RequestParam Long examId, RedirectAttributes redirectAttrs) {
 
-        String redirectModifier = "";
+
         userService.deleteUserAnswerByQuestionId(qId);
         answerService.deleteAnswersQuestion(qId);
 

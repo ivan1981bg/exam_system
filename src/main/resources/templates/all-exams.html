@@ -7,7 +7,7 @@
 <header th:replace="fragments/commons :: navigation"></header>
 <main>
     <nav th:replace="~{fragments/Navigation :: topBar}"></nav>
-    <div class="container">
+    <div class="container" >
         <table class="table table-hover w-100 mx-auto">
             <thead>
             <tr class="row mx-auto">
@@ -20,7 +20,7 @@
             </thead>
 
             <tbody>
-            <th:block th:each="exam, iter : ${exams}">
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')" th:each="exam, iter : ${exams}">
                 <tr class="row mx-auto">
                     <th class="col-md-1 text-center" th:utext="${iter.index + 1}"></th>
                     <td class="col-md-2 text-center" th:utext="${exam.name}"></td>
@@ -38,11 +38,9 @@
                     </th:block>
 
                     <td class="col-md-1 text-center red-color">
-                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                            <th:block>
-                                <a th:href="@{/exams/delete/{id}(id=${exam.id})}">DELETE</a>
-                            </th:block>
-                        </th:block>
+                        <form th:action="@{/exams/publish/{id}(id=${exam.id})}" method="get">
+                            <button style="color: #0a0f17">PUBLISH</button>
+                        </form>
                     </td>
 
                 </tr>

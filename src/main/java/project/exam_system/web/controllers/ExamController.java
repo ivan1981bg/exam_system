@@ -80,14 +80,13 @@ public class ExamController {
     }
 
 
-
     @PostMapping("/edit/{exam_id}/new_q")
     public String newQuestion(@Valid QuestionBindingModel questionBindingModel,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes,
                               Model model, @PathVariable Long exam_id) {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("questionBindingModel", questionBindingModel);
             redirectAttributes
                     .addFlashAttribute("org.springframework.validation.BindingResult.questionBindingModel", bindingResult);
@@ -109,7 +108,7 @@ public class ExamController {
 
 
         List<AnswerServiceModel> answerServiceModels = new ArrayList<>();
-        for (int i = 0; i < questionBindingModel.getAnswersText().size(); i++){
+        for (int i = 0; i < questionBindingModel.getAnswersText().size(); i++) {
             answerServiceModels.add(new AnswerServiceModel(questionBindingModel.getAnswersText().get(i), i));
         }
         answerService.saveAnswers(answerServiceModels, questionServiceModel);
@@ -118,25 +117,36 @@ public class ExamController {
     }
 
     @GetMapping("/start/{examId}")
-    public String startExam(@PathVariable Long examId, Model model ) {
-
+    public String startExam(@PathVariable Long examId, Model model) {
 
 
         return "forward:/questions/show?e=" + examId + "&q=0";
     }
 
     @GetMapping("/completed/{examId}")
-    @PageTitle("Completition")
+    @PageTitle("Completion")
     public String onCompletion(@PathVariable Long examId, Principal principal, ModelMap model) {
 
         UserServiceModel userServiceModel = userService.getByUsername(principal.getName());
         Integer totalCorrect = answerService.getTotalCorrect(userServiceModel, examService.getById(examId));
 
 
-        resultService.saveResult(userServiceModel, examService.getById(examId),totalCorrect);
+        resultService.saveResult(userServiceModel, examService.getById(examId), totalCorrect);
         model.addAttribute("score", totalCorrect);
         model.addAttribute("totalQuestions", examService.getById(examId).getQuestions().size());
         return "exam-completion";
 
-            }
+    }
+
+
+    @GetMapping("/publish/{examId}")
+    public ModelAndView publishExam(@PathVariable Long examId, ModelAndView modelAndView) {
+
+        ExamServiceModel examServiceModel = examService.getById(examId);
+        examService.switchPublish(examId);
+
+        modelAndView.addObject("exams", examService.getAll());
+        modelAndView.setViewName("all-exams");
+        return modelAndView;
+    }
 }

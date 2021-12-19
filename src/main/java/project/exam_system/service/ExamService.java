@@ -12,4 +12,7 @@ public interface ExamService {
     List<ExamServiceModel> getAll();
     ExamServiceModel getById(Long id);
 
+    void deleteExam(Long examId);
+
+    void switchPublish(Long examId);
 }

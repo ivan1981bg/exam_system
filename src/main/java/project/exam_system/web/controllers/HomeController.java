@@ -4,6 +4,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import project.exam_system.model.service.ExamServiceModel;
 import project.exam_system.model.service.UserServiceModel;
 import project.exam_system.service.ExamService;
 import project.exam_system.service.UserService;
@@ -11,6 +12,8 @@ import project.exam_system.web.annotations.PageTitle;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class HomeController {
@@ -38,10 +41,12 @@ public class HomeController {
     public String home(Principal principal, HttpSession session, Model model){
 
         String userName = principal.getName();
-        UserServiceModel userServiceModel = userService.getByUsername(userName);
-        session.setAttribute("userFirstName", userServiceModel.getFirstName());
+        session.setAttribute("userFirstName", userService.getByUsername(userName).getFirstName());
 
-        model.addAttribute("exams", examService.getAll());
+        List<ExamServiceModel> publishedExams = examService.getAll().
+                stream().filter(examServiceModel -> examServiceModel.getPublished())
+                        .collect(Collectors.toList());
+        model.addAttribute("exams", publishedExams);
         model.addAttribute("userFirstName", userName);
         return "home";
     }

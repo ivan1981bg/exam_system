@@ -39,4 +39,20 @@ public class ExamServiceImpl implements ExamService {
                 map(exam -> modelMapper.map(exam, ExamServiceModel.class)).
                 orElse(null);
     }
+
+    @Override
+    public void deleteExam(Long examId) {
+        examRepository.deleteById(examId);
+    }
+
+    @Override
+    public void switchPublish(Long examId) {
+        Exam exam = examRepository.getById(examId);
+        if (exam.getPublished() == false){
+            exam.setPublished(true);
+        }else{
+            exam.setPublished(false);
+        }
+        examRepository.save(exam);
+    }
 }
