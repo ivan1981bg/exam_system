@@ -26,7 +26,7 @@ public class HomeController {
     @GetMapping("/")
     @PreAuthorize("isAnonymous()")
     @PageTitle("Index")
-    public String index(HttpSession httpSession){
+    public String index(){
 
             return "index";
 
