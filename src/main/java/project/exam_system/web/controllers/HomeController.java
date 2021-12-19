@@ -28,8 +28,8 @@ public class HomeController {
     @PageTitle("Index")
     public String index(HttpSession httpSession){
 
+            return "index";
 
-        return "index";
     }
 
     @GetMapping("/home")

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.exam_system.model.binding.QuestionBindingModel;
+import project.exam_system.model.binding.UserRegisterBindingModel;
 import project.exam_system.model.entities.Exam;
 import project.exam_system.model.service.*;
 import project.exam_system.service.*;
@@ -42,9 +43,10 @@ public class ExamController {
     }
 
     @ModelAttribute("questionBindingModel")
-    public QuestionBindingModel questionBindingModel() {
+    public QuestionBindingModel createBindingModel() {
         return new QuestionBindingModel();
     }
+
 
     @GetMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -66,10 +68,11 @@ public class ExamController {
 
 
     @GetMapping("/edit/{exam_id}/new_q")
-    public String createNewQuestion(@ModelAttribute QuestionBindingModel questionBindingModel,
-                                    Model model, @PathVariable Long exam_id) {
+    public String createNewQuestion(@RequestParam(value = "numberOfAnswers", defaultValue = "3") Integer numberOfAnswers,
+                                    Model model,
+                                    @PathVariable Long exam_id) {
 
-        model.addAttribute("numberOfAnswers", 3);
+        model.addAttribute("numberOfAnswers", numberOfAnswers);
         model.addAttribute("MAX_ANSWERS", 5);
         return "new-question";
     }
@@ -86,6 +89,9 @@ public class ExamController {
             redirectAttributes.addFlashAttribute("questionBindingModel", questionBindingModel);
             redirectAttributes
                     .addFlashAttribute("org.springframework.validation.BindingResult.questionBindingModel", bindingResult);
+
+
+            redirectAttributes.addAttribute("numberOfAnswers", questionBindingModel.getAnswersText().size());
             return "redirect:new_q";
         }
         //TODO: binding stuff

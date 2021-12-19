@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/commons :: head"></head>
+<body>
+<header th:replace="fragments/commons :: navigation"></header>
+<main>
+    <nav
+            th:replace="~{fragments/Navigation :: topBar}">
+    </nav>
+    <div class="w3-container w3-center w3-padding-large">
+        <h2> Results From Rest Controller </h2>
+    </div>
+    <button id="loadResults">LOAD ALL</button>
+    <table class="w3-table w3-bordered w3-centered">
+        <thead>
+        <tr>
+            <th>Full name</th>
+            <th>Exam name</th>
+            <th>Total correct</th>
+            <th>Number of Questions</th>
+        </tr>
+        </thead>
+        <tbody id="results-container"></tbody>
+    </table>
+
+
+</main>
+<footer th:replace="fragments/commons :: footer"></footer>
+<script src="/js/get-results.js"></script>
+</body>
+</html>

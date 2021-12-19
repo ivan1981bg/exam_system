@@ -11,7 +11,7 @@
 
     <h4 align="center">Create new question</h4>
 
-    <form th:action="@{/questions/new}" method="get">
+    <form th:action="@{|/exams/edit/${exam_id}/new_q|}" method="get">
 
         <p th:text= "'Number of answers: '"> </p>
 
@@ -28,12 +28,12 @@
     <form class="w3-container w3-card w3-light-grey" style="width:80%;"
           action="#" th:action="@{|/exams/edit/${exam_id}/new_q|}" th:object="${questionBindingModel}" method="post">
         <p align="left">
-            <label th:for="questionText">Question:</label>
-            <label class="w3-text-red"
-                   th:errors="*{text}"> QuestionText error </label>
+            <label th:for="text">Question:</label>
             <input class="w3-input w3-border"
                    type="text" th:field="*{text}"
                    required autofocus />
+            <small th:if="${#fields.hasErrors('text')}" class="text-danger"
+                   th:errors="*{text}"></small>
         </p>
 
         <div class="w3-quarter w3-right" align="center">
@@ -63,6 +63,7 @@
             </div>
         </div>
         <label class="w3-text-red" th:errors="*{correctAnswer}"> Answers error </label>
+        <label class="w3-text-red" th:errors="*{answersText}"> Answers error </label>
         <p>
             <input class="w3-btn w3-block w3-green w3-m"
                    type="submit" value="Add question" />

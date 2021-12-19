@@ -1,5 +1,7 @@
 package project.exam_system.model.binding;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.List;
 public class QuestionBindingModel {
     @Size(min = 5, max = 100, message = "The question should be between 5 and 100 characters!")
     private String text;
+    @UniqueElements(message = "Each answer has to be different!")
     private List<String> answersText = new ArrayList<>();
     @NotNull(message = "Please select correct answer!")
     private Integer correctAnswer;

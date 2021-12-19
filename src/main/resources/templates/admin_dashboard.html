@@ -7,10 +7,16 @@
 
 <main class = "adminBackground">
     <nav th:replace="~{fragments/Navigation :: topBar}"></nav>
+
+    <a th:href="@{/results/byRest}" class="text-center btn btn-info text-white mb-3 justify-content-center d-flex ">Get Results by Rest Controller</a>
+<!--    <div class="button-holder d-flex justify-content-center">-->
+<!--        <button  th:href = "@{/about}" " id="loadResults" class="text-center btn btn-info text-white mb-3" type="submit">Results with Rest controller</button>-->
+<!--    </div>-->
     <div class="w3-container w3-padding-large white-color" align="center">
         <h2 th:text="${'Welcome ' + session.userFirstName}"></h2>
     </div>
 </main>
 <footer th:replace="fragments/commons :: footer"></footer>
+
 </body>
 </html>

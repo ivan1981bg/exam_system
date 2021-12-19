@@ -2,6 +2,7 @@ package project.exam_system.model.view;
 
 public class ResultsAllViewModel {
 
+    private Long id;
     private String fullName;
     private String examName;
     private Integer totalCorrect;
@@ -43,6 +44,15 @@ public class ResultsAllViewModel {
 
     public ResultsAllViewModel setNumberOfQuestions(Integer numberOfQuestions) {
         this.numberOfQuestions = numberOfQuestions;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public ResultsAllViewModel setId(Long id) {
+        this.id = id;
         return this;
     }
 }

@@ -36,4 +36,12 @@ public class ResultController {
         modelAndView.setViewName("results-by-name");
         return modelAndView;
     }
+
+    @GetMapping("/byRest")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ModelAndView byRestController(ModelAndView modelAndView){
+
+        modelAndView.setViewName("results-by-rest");
+        return modelAndView;
+    }
 }
