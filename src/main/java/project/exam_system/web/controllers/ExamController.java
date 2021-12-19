@@ -60,6 +60,7 @@ public class ExamController {
     }
 
     @GetMapping("/edit/{exam_id}")
+    @PageTitle("Questions in exam")
     public ModelAndView editExam(@PathVariable Long exam_id, ModelAndView modelAndView) {
         modelAndView.addObject("questions", examService.getById(exam_id).getQuestions());
         modelAndView.addObject("exam_id", exam_id);
