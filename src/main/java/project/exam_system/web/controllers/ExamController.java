@@ -50,6 +50,7 @@ public class ExamController {
 
     @GetMapping("")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("All exams")
     public ModelAndView getAllExamsView(ModelAndView modelAndView) {
         modelAndView.addObject("exams", examService.getAll());
 

@@ -14,6 +14,7 @@ import project.exam_system.service.AnswerService;
 import project.exam_system.service.ExamService;
 import project.exam_system.service.QuestionService;
 import project.exam_system.service.UserService;
+import project.exam_system.web.annotations.PageTitle;
 
 import java.security.Principal;
 import java.util.List;
@@ -40,6 +41,7 @@ public class QuestionController {
 
 
     @GetMapping("/show")
+    @PageTitle("Question")
     public String showQuestion( @RequestParam(name = "e") Long examId,
                                @RequestParam(name = "q") Integer questionIndex,
                                Model model) {

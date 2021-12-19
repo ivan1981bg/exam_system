@@ -10,6 +10,7 @@ import project.exam_system.model.service.ResultServiceModel;
 import project.exam_system.model.view.ResultsAllViewModel;
 import project.exam_system.model.view.UsersAllViewModel;
 import project.exam_system.service.ResultService;
+import project.exam_system.web.annotations.PageTitle;
 
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ public class ResultController {
 
     @GetMapping("/byUsers")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("Results")
     public ModelAndView byUsersView(ModelAndView modelAndView) {
         modelAndView.addObject("results", resultService.getAll()
                 .stream()
@@ -39,6 +41,7 @@ public class ResultController {
 
     @GetMapping("/byRest")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("Results with REST")
     public ModelAndView byRestController(ModelAndView modelAndView){
 
         modelAndView.setViewName("results-by-rest");

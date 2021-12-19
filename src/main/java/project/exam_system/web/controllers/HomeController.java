@@ -45,6 +45,14 @@ public class HomeController {
         model.addAttribute("userFirstName", userName);
         return "home";
     }
+
+    @GetMapping("/about")
+    @PageTitle("About")
+    public String about(){
+
+        return "about";
+
+    }
 }
 
 

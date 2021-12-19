@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/commons :: head"></head>
+<body class = "aboutBackground">
+<header th:replace="fragments/commons :: navigation"></header>
+<main >
+    <nav
+            th:replace="~{fragments/Navigation :: topBar}">
+    </nav>
+
+
+
+</main>
+<footer th:replace="fragments/commons :: footer"></footer>
+<script src="/js/get-results.js"></script>
+</body>
+</html>

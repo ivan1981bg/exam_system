@@ -45,6 +45,13 @@ body {
     background-size: cover;
 }
 
+.aboutBackground{
+    background: url("../images/under-construction.png") no-repeat center;
+    background-size: cover;
+}
+
+
+
 .carouselExampleIndicators {
     height: 500px;
 }

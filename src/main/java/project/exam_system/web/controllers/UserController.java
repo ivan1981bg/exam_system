@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.exam_system.model.binding.UserRegisterBindingModel;
 import project.exam_system.model.service.UserRegisterServiceModel;
 import project.exam_system.service.UserService;
+import project.exam_system.web.annotations.PageTitle;
 
 import javax.validation.Valid;
 
@@ -42,6 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
+    @PageTitle("Login")
     public String login() {
         return "login";
     }
@@ -59,6 +61,7 @@ public class UserController {
 
 
     @GetMapping("/register")
+    @PageTitle("Register")
     public String register() {
 
         return "register";
@@ -118,6 +121,7 @@ public class UserController {
 
     @GetMapping("/delete/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PageTitle("Delete user")
     public ModelAndView deleteUserConfirm(@PathVariable Long id, ModelAndView modelAndView) {
         userService.deleteUserAnswers(id);
         userService.deleteUser(id);

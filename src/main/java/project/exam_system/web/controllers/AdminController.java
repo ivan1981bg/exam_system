@@ -12,6 +12,7 @@ import project.exam_system.model.entities.Exam;
 import project.exam_system.model.view.UsersAllViewModel;
 import project.exam_system.service.ExamService;
 import project.exam_system.service.UserService;
+import project.exam_system.web.annotations.PageTitle;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
@@ -31,12 +32,14 @@ public class AdminController {
     }
 
     @GetMapping("/panel")
+    @PageTitle("Admin panel")
     public String admin() {
         return "admin_dashboard";
     }
 
     @GetMapping("/all-users")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+
     public ModelAndView getAllView(ModelAndView modelAndView) {
         modelAndView.addObject("users", userService.getAll()
                 .stream()
