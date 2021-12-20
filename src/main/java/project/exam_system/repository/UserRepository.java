@@ -17,18 +17,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByUsername(String userName);
-/*
-    @Query(value = "SELECT value(answer) from UserEntity user join user.answers answer " +
-            "where user.username = :username and key(answer).id = :questionId")
-    String getAnswerByUsernameAndQuestion(@Param("username") String username, @Param("questionId") Long questionId);
 
-
-    @Query(value = "SELECT user FROM UserEntity user join user.answers  " +
-            " question JOIN  user.answers  Question    where user.username = :username and question = :questionId")
-    Object getAnswersByUsernameAndQuestion(@Param("username") String username, @Param("questionId") String questionId);
-
-    @Modifying
-    @Query(value = "DELETE  FROM UserEntity user  WHERE key(user.answers).id = :qId ")
-    void removeFromUsersAnswers(@Param("qId") Long qId);*/
+    boolean existsByUsername(String username);
 
 }

@@ -60,7 +60,7 @@ public class UserServiceImpl implements UserService {
                     setLastName("Panchev").
                     setEmail("i_panchev@abv.bg").
                     setUsername("i_panchev").
-                    setPassword(bCryptPasswordEncoder.encode(System.getenv("ROOT_USER_PASSWORD"))).
+                    setPassword(bCryptPasswordEncoder.encode("12345"/*System.getenv("ROOT_USER_PASSWORD")*/)).
                     setRoles(userRoleService.getRolesForRootUser());
 
            userRepository.save(user);

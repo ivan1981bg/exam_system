@@ -7,13 +7,13 @@ public abstract class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id", nullable = false, updatable = false)
-    private long id;
+    private Long id;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public BaseEntity setId(long id) {
+    public BaseEntity setId(Long id) {
         this.id = id;
         return this;
     }
