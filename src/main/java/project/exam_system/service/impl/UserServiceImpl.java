@@ -40,7 +40,12 @@ public class UserServiceImpl implements UserService {
     private final ExamService examService;
     private final UserAnswerRepository userAnswerRepository;
 
-    public UserServiceImpl(UserRepository userRepository, UserRoleService userRoleService, BCryptPasswordEncoder bCryptPasswordEncoder, ModelMapper modelMapper, UserRoleRepository userRoleRepository, ExamSystemUserService examSystemUserService, ExamService examService, UserAnswerRepository userAnswerRepository) {
+    public UserServiceImpl(UserRepository userRepository, UserRoleService userRoleService,
+                           BCryptPasswordEncoder bCryptPasswordEncoder,
+                           ModelMapper modelMapper,
+                           UserRoleRepository userRoleRepository,
+                           ExamSystemUserService examSystemUserService,
+                           ExamService examService, UserAnswerRepository userAnswerRepository) {
         this.userRepository = userRepository;
         this.userRoleService = userRoleService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
@@ -160,12 +165,7 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ObjectNotFoundException("Invalid user identifier!"));
     }
 
-    @Override
-    @Transactional
-    public void removeFromUsersAnswers(Long qId) {
 
-       // userRepository.removeFromUsersAnswers(qId);
-    }
 
     @Override
     @Transactional

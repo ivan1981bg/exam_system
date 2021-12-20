@@ -13,14 +13,14 @@
 
     <div class="w3-panel" align="center">
         <form class="w3-container w3-card w3-light-grey" style="width:80%;"
-              action="#" th:action="@{/admin/create-new}" th:object="${exam}" method="post">
+              action="#" th:action="@{/admin/create-new}" th:object="${examBindingModel}" method="post">
             <p align="left">
                 <label th:for="name">Name:</label>
                 <label class="w3-text-red"
                        th:errors="*{name}"> Name error </label>
                 <input class="w3-input w3-border"
                        type="text" th:field="*{name}"
-                       required autofocus/>
+                       required minlength="2" autofocus/>
             </p>
             <p align="left">
                 <label th:for="description">Description:</label>
@@ -28,7 +28,7 @@
                        th:errors="*{description}"> Description error </label>
                 <input class="w3-input w3-border"
                        type="text" th:field="*{description}"
-                       required autofocus/>
+                       required minlength="2" autofocus/>
             </p>
 
 

@@ -8,6 +8,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import project.exam_system.model.binding.ExamBindingModel;
+import project.exam_system.model.binding.UserRegisterBindingModel;
 import project.exam_system.model.entities.Exam;
 import project.exam_system.model.view.UsersAllViewModel;
 import project.exam_system.service.ExamService;
@@ -31,6 +33,11 @@ public class AdminController {
         this.examService = examService;
     }
 
+    @ModelAttribute("examBindingModel")
+    public ExamBindingModel createBindingModel() {
+        return new ExamBindingModel();
+    }
+
     @GetMapping("/panel")
     @PageTitle("Admin panel")
     public String admin() {
@@ -52,8 +59,7 @@ public class AdminController {
 
 
     @GetMapping("/create-new")
-    public String newExam(@ModelAttribute Exam exam,
-                              ModelMap model) {
+    public String newExam() {
 
 
         return "new-exam";
@@ -61,13 +67,15 @@ public class AdminController {
 
 
     @PostMapping("/create-new")
-    public String addQuestion(@Valid Exam exam, BindingResult bindingResult, ModelMap model, RedirectAttributes redirectAttrs) {
+    public String addQuestion(@Valid ExamBindingModel examBindingModel, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            model.addAttribute("numberOfQuestions", exam.getQuestions().size());
-            return "new-exam";
+            redirectAttributes.addFlashAttribute("examBindingModel", examBindingModel);
+            redirectAttributes.addFlashAttribute(
+                    "org.springframework.validation.BindingResult.examBindingModel", bindingResult);
+            return "redirect:create-new";
         }
-            examService.save(exam);
+            examService.save(modelMapper.map(examBindingModel, Exam.class));
 
         return "redirect:panel";
     }

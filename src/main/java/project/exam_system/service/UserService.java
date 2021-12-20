@@ -24,7 +24,6 @@ public interface UserService {
     void deleteUser(Long id);
     UserServiceModel getById(Long id);
 
-    void removeFromUsersAnswers(Long qId);
 
     void deleteUserAnswers(Long id);
 

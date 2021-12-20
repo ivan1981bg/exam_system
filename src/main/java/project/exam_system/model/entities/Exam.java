@@ -14,9 +14,12 @@ public class Exam extends BaseEntity{
     @NotNull(message = "Please provide a name")
     private String name;
 
-    @Size(max = 500, message = "The description can't be longer than 500 characters.")
+    @Size(max = 255, message = "The description can't be longer than 255 characters.")
     @NotNull(message = "Please, provide a description")
     private String description;
+
+
+    private String imgUrl;
 
     @OneToMany(mappedBy = "exam", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Question> questions = new ArrayList<>();
@@ -62,4 +65,12 @@ public class Exam extends BaseEntity{
         return this;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public Exam setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+        return this;
+    }
 }
