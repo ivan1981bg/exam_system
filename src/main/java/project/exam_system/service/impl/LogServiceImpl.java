@@ -6,11 +6,14 @@ import org.springframework.stereotype.Service;
 import project.exam_system.model.entities.Log;
 import project.exam_system.model.service.ExamServiceModel;
 import project.exam_system.model.service.LogServiceModel;
+import project.exam_system.model.service.ResultServiceModel;
 import project.exam_system.repository.LogRepository;
 import project.exam_system.service.ExamService;
 import project.exam_system.service.LogService;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class LogServiceImpl implements LogService {
@@ -47,5 +50,12 @@ public class LogServiceImpl implements LogService {
     public LogServiceModel seedLogInDB(LogServiceModel logServiceModel) {
         Log log = this.modelMapper.map(logServiceModel, Log.class);
         return this.modelMapper.map(this.logRepository.saveAndFlush(log),LogServiceModel.class);
+    }
+
+    @Override
+    public List<LogServiceModel> getAll() {
+        return logRepository.findAll().stream()
+                .map(log -> modelMapper.map(log, LogServiceModel.class))
+                .collect(Collectors.toList());
     }
 }

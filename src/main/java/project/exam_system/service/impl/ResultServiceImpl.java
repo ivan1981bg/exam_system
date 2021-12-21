@@ -41,7 +41,7 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public List<ResultServiceModel> getAll() {
         return resultRepository.findAll().stream()
-                .map(user -> modelMapper.map(user, ResultServiceModel.class))
+                .map(result -> modelMapper.map(result, ResultServiceModel.class))
                 .collect(Collectors.toList());
     }
 }
